@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:id="@+id/homePage"
+    tools:context=".MainActivity"
+    tools:openDrawer="start">
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+        <FrameLayout android:id="@+id/main_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/navigationBar"/>
+
+        <LinearLayout android:id="@+id/navigationBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="#f5f5f5">
+
+            <TextView android:id="@+id/home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/ic_home_black_24dp"
+                android:text="Home"
+                android:textSize="10dp"
+                android:gravity="center_horizontal"
+                android:textColor="@color/iconDisabed"
+                android:layout_weight="0.25"
+                android:paddingTop="3dp"
+                android:clickable="true"
+                android:focusable="true"/>
+
+            <TextView android:id="@+id/pending"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/ic_access_time_black_24dp"
+                android:text="Pending"
+                android:textSize="10dp"
+                android:gravity="center_horizontal"
+                android:textColor="@color/iconDisabed"
+                android:layout_weight="0.25"
+                android:paddingTop="3dp"
+                android:clickable="true"
+                android:focusable="true"/>
+
+            <TextView android:id="@+id/past"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/ic_done_black_24dp"
+                android:text="Delivered"
+                android:textSize="10dp"
+                android:gravity="center_horizontal"
+                android:textColor="@color/iconDisabed"
+                android:layout_weight="0.25"
+                android:paddingTop="3dp"
+                android:clickable="true"
+                android:focusable="true"/>
+
+            <TextView android:id="@+id/rates"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/ic_attach_money_black_24dp"
+                android:text="Rates"
+                android:textSize="10dp"
+                android:gravity="center_horizontal"
+                android:textColor="@color/iconDisabed"
+                android:layout_weight="0.25"
+                android:paddingTop="3dp"
+                android:clickable="true"
+                android:focusable="true"/>
+
+            <TextView android:id="@+id/signout_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/ic_attach_money_black_24dp"
+                android:text="Rates"
+                android:textSize="10dp"
+                android:gravity="center_horizontal"
+                android:textColor="@color/iconDisabed"
+                android:layout_weight="0.25"
+                android:paddingTop="3dp"
+                android:clickable="true"
+                android:focusable="true"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:id="@+id/nav_view"
+        app:headerLayout="@layout/nav_main_drawer"
+        app:menu="@menu/drawer_menu"/>
+</androidx.drawerlayout.widget.DrawerLayout>
