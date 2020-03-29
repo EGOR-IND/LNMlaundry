@@ -8,4 +8,5 @@
     <color name="iconDisabed">#bdbdbd</color>
     <color name="pendingIconEnabled">#e53935</color>
     <color name="pastIconEnabled">#4caf50</color>
+    <color name="menuItemColor">#e0e0e0</color>
 </resources>
