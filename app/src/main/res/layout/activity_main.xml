@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:id="@+id/homePage"
     tools:context=".MainActivity"
-    tools:openDrawer="start">
+    tools:openDrawer="">
 
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -17,10 +16,91 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
-        <FrameLayout android:id="@+id/main_frame"
+        <RelativeLayout android:id="@+id/headerBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:paddingLeft="5dp">
+
+            <ImageView android:id="@+id/hamMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_menu_black_24dp"
+                android:clickable="true"
+                android:focusable="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="Laundry"
+                android:textColor="@color/white"
+                android:fontFamily="@font/chewy"
+                android:textSize="24dp"/>
+        </RelativeLayout>
+
+        <LinearLayout android:id="@+id/washTypeBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/headerBar">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:background="@color/colorCategoryBar"
+                android:fontFamily="@font/baumans"
+                android:gravity="center_horizontal"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:text="Regular wash"
+                android:textColor="#FFFFFF"
+                android:textSize="20dp"
+                android:clickable="true"
+                android:focusable="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:background="@drawable/border"
+                android:fontFamily="@font/baumans"
+                android:gravity="center_horizontal"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:text="Dry clean"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="20dp"
+                android:clickable="true"
+                android:focusable="true"/>
+        </LinearLayout>
+
+
+        <FrameLayout android:id="@+id/main_frame1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/navigationBar"/>
+            android:layout_above="@id/navigationBar"
+            android:layout_below="@id/headerBar">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="home"/>
+            </RelativeLayout>
+        </FrameLayout>
+
+        <FrameLayout android:id="@+id/main_frame2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/navigationBar"
+            android:layout_below="@id/headerBar"/>
 
         <LinearLayout android:id="@+id/navigationBar"
             android:layout_width="match_parent"
@@ -79,19 +159,6 @@
                 android:paddingTop="3dp"
                 android:clickable="true"
                 android:focusable="true"/>
-
-            <TextView android:id="@+id/signout_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableTop="@drawable/ic_attach_money_black_24dp"
-                android:text="Rates"
-                android:textSize="10dp"
-                android:gravity="center_horizontal"
-                android:textColor="@color/iconDisabed"
-                android:layout_weight="0.25"
-                android:paddingTop="3dp"
-                android:clickable="true"
-                android:focusable="true"/>
         </LinearLayout>
     </RelativeLayout>
 
@@ -99,7 +166,10 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:fitsSystemWindows="true"
         android:id="@+id/nav_view"
         app:headerLayout="@layout/nav_main_drawer"
-        app:menu="@menu/drawer_menu"/>
+        app:menu="@menu/drawer_menu"
+        app:itemTextColor="@color/iconDisabed"
+        app:itemIconTint="@color/iconDisabed"/>
 </androidx.drawerlayout.widget.DrawerLayout>

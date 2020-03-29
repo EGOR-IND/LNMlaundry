@@ -1,7 +1,10 @@
 package com.example.lnmlaundry;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -11,16 +14,16 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
-import static com.google.firebase.auth.FirebaseAuth.getInstance;
+import static androidx.core.view.GravityCompat.*;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -29,21 +32,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView past;
     private TextView rates;
 
+    DrawerLayout drawerLayout;
+    ActionBarDrawerToggle drawerToggle;
+    NavigationView navigationView;
+
+    boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment homefrg = fragmentManager.findFragmentByTag("home");
-
-        if(homefrg == null)
-            homefrg = new home();
-
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.main_frame, homefrg, "home");
-        transaction.commit();
 
         home = (TextView)findViewById(R.id.home);
         pending = (TextView)findViewById(R.id.pending);
@@ -58,11 +56,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         home.setTextColor(getResources().getColor(R.color.colorPrimary));
         setTextViewDrawableColor(home,R.color.colorPrimary);
 
-        findViewById(R.id.signout_button).setOnClickListener(new View.OnClickListener() {
+        drawerLayout = (DrawerLayout) findViewById(R.id.homePage);
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout,R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(drawerToggle);
+        drawerToggle.syncState();
+
+        navigationView = (NavigationView)findViewById(R.id.nav_view);
+        findViewById(R.id.hamMenu).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signOut();
+                drawerLayout.openDrawer(START);
             }
+        });
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                int id = menuItem.getItemId();
+                switch (id) {
+                    case R.id.sign_out:
+                        signOut();
+                        break;
+                    default:
+                        return true;
+                    }
+                    return true;
+                }
         });
     }
 
@@ -86,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 setTextViewDrawableColor(past,R.color.iconDisabed);
                 rates.setTextColor(getResources().getColor(R.color.iconDisabed));
                 setTextViewDrawableColor(rates,R.color.iconDisabed);
-                homeFragment();
+                showHeaderBar();
                 break;
 
             case R.id.pending:
@@ -99,6 +118,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 home.setTextColor(getResources().getColor(R.color.iconDisabed));
                 setTextViewDrawableColor(home,R.color.iconDisabed);
                 pendingFragment();
+                hideHeaderBar();
                 break;
 
             case R.id.past:
@@ -111,6 +131,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 pending.setTextColor(getResources().getColor(R.color.iconDisabed));
                 setTextViewDrawableColor(pending,R.color.iconDisabed);
                 pastFragment();
+                hideHeaderBar();
                 break;
 
             case R.id.rates:
@@ -123,23 +144,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 pending.setTextColor(getResources().getColor(R.color.iconDisabed));
                 setTextViewDrawableColor(pending,R.color.iconDisabed);
                 ratesFragment();
+                hideHeaderBar();
                 break;
         }
     }
 
-    public void homeFragment(){
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment home = fragmentManager.findFragmentByTag("home");
-
-        if(home == null)
-            home = new home();
-
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.main_frame, home, "home");
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        transaction.addToBackStack(null);
-        transaction.commit();
+    @Override
+    public void onBackPressed() {
+        if (this.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            this.drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     public void pendingFragment(){
@@ -151,7 +167,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             pending = new pending();
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.main_frame, pending, "pending");
+        transaction.replace(R.id.main_frame2, pending, "pending");
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         transaction.addToBackStack(null);
         transaction.commit();
@@ -166,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             past = new past();
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.main_frame, past, "past");
+        transaction.replace(R.id.main_frame2, past, "past");
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         transaction.addToBackStack(null);
         transaction.commit();
@@ -181,7 +197,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             rates = new rates();
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.main_frame, rates, "rates");
+        transaction.replace(R.id.main_frame2, rates, "rates");
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         transaction.addToBackStack(null);
         transaction.commit();
@@ -192,5 +208,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .signOut();
         finish();
         startActivity(new Intent(MainActivity.this, signin_page.class));
+    }
+
+    private void hideHeaderBar(){
+        findViewById(R.id.headerBar).setVisibility(View.GONE);
+        findViewById(R.id.washTypeBar).setVisibility(View.GONE);
+        findViewById(R.id.main_frame1).setVisibility(View.GONE);
+        findViewById(R.id.main_frame2).setVisibility(View.VISIBLE);
+    }
+
+    private void showHeaderBar(){
+        findViewById(R.id.headerBar).setVisibility(View.VISIBLE);
+        findViewById(R.id.washTypeBar).setVisibility(View.VISIBLE);
+        findViewById(R.id.main_frame1).setVisibility(View.VISIBLE);
+        findViewById(R.id.main_frame2).setVisibility(View.GONE);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment Blank = fragmentManager.findFragmentByTag("Blank Fragment");
+
+        if(Blank == null)
+            Blank = new BlankFragment();
+
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.main_frame2, Blank, "Blank Fragment");
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }

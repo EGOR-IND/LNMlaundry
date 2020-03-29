@@ -37,7 +37,7 @@ public class signin_page extends AppCompatActivity {
     GoogleApiClient googleApiClient;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super   .onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin_page);
 
         mAuth = FirebaseAuth.getInstance();
