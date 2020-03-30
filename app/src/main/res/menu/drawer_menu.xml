@@ -5,6 +5,9 @@
 
     <group android:checkableBehavior="single">
 
+        <item android:id="@+id/userDetails"
+            android:icon="@drawable/ic_person_black_24dp"
+            android:title="My details"/>
         <item android:id="@+id/rate"
             android:icon="@drawable/ic_rate_review_black_24dp"
             android:title="Rate us"/>

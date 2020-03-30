@@ -13,15 +13,16 @@ import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.squareup.picasso.Picasso;
 
 import static androidx.core.view.GravityCompat.*;
 
@@ -31,12 +32,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView pending;
     private TextView past;
     private TextView rates;
+    private TextView rw;
+    private TextView dc;
 
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle drawerToggle;
     NavigationView navigationView;
-
-    boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +48,46 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         pending = (TextView)findViewById(R.id.pending);
         past = (TextView)findViewById(R.id.past);
         rates = (TextView)findViewById(R.id.rates);
+        rw = (TextView)findViewById(R.id.rw);
+        dc = (TextView)findViewById(R.id.dc);
 
         home.setOnClickListener(this);
         pending.setOnClickListener(this);
         past.setOnClickListener(this);
         rates.setOnClickListener(this);
+        findViewById(R.id.main_frame2).setVisibility(View.GONE);
+
+        rw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rw.setTextColor(getResources().getColor(R.color.white));
+                rw.setBackgroundColor(getResources().getColor(R.color.colorCategoryBar));
+                dc.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                dc.setBackground(getResources().getDrawable(R.drawable.border));
+                regularWashFragment();
+            }
+        });
+
+        dc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dc.setTextColor(getResources().getColor(R.color.white));
+                dc.setBackgroundColor(getResources().getColor(R.color.colorCategoryBar));
+                rw.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                rw.setBackground(getResources().getDrawable(R.drawable.border));
+                dryCleanFragment();
+            }
+        });
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment rw1 = fragmentManager.findFragmentByTag("Regular wash");
+
+        if(rw1 == null)
+            rw1 = new regularWash();
+
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.add(R.id.main_frame1, rw1, "Regular wash");
+        transaction.commit();
 
         home.setTextColor(getResources().getColor(R.color.colorPrimary));
         setTextViewDrawableColor(home,R.color.colorPrimary);
@@ -68,7 +104,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 drawerLayout.openDrawer(START);
             }
         });
+        View headerView = navigationView.getHeaderView(0);
+        TextView mName = (TextView) headerView.findViewById(R.id.name);
+        TextView mEmail = (TextView) headerView.findViewById(R.id.email);
+        ImageView mProfilePic = (ImageView) headerView.findViewById(R.id.profilePic);
 
+        mName.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+        mEmail.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+
+        Picasso.with(this).load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()).placeholder(R.drawable.ic_account_circle_black_24dp).fit().into(mProfilePic);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -156,6 +200,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             super.onBackPressed();
         }
+    }
+
+    public void regularWashFragment(){
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment rw = fragmentManager.findFragmentByTag("Regular wash");
+
+        if(rw == null)
+            rw = new regularWash();
+
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.main_frame1, rw, "Regular wash");
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    public void dryCleanFragment(){
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment dc = fragmentManager.findFragmentByTag("Dry clean");
+
+        if(dc == null)
+            dc = new dryClean();
+
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.main_frame1, dc, "Dry clean");
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     public void pendingFragment(){

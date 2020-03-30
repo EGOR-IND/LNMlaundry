@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/homePage"
     tools:context=".MainActivity"
-    tools:openDrawer="">
-
+    tools:openDrawer="start">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -46,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/headerBar">
 
-            <TextView
+            <TextView android:id="@+id/rw"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
@@ -61,7 +60,7 @@
                 android:clickable="true"
                 android:focusable="true"/>
 
-            <TextView
+            <TextView android:id="@+id/dc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
@@ -82,25 +81,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@id/navigationBar"
-            android:layout_below="@id/headerBar">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="home"/>
-            </RelativeLayout>
-        </FrameLayout>
+            android:layout_below="@id/washTypeBar"/>
 
         <FrameLayout android:id="@+id/main_frame2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@id/navigationBar"
-            android:layout_below="@id/headerBar"/>
+            android:layout_below="@id/washTypeBar"/>
 
         <LinearLayout android:id="@+id/navigationBar"
             android:layout_width="match_parent"
@@ -170,6 +157,7 @@
         android:id="@+id/nav_view"
         app:headerLayout="@layout/nav_main_drawer"
         app:menu="@menu/drawer_menu"
-        app:itemTextColor="@color/iconDisabed"
-        app:itemIconTint="@color/iconDisabed"/>
+        app:itemTextColor="@color/navMenuItemDisabled"
+        app:itemIconTint="@color/navMenuItemDisabled"
+        app:itemBackground="@drawable/nav_item_select_color"/>
 </androidx.drawerlayout.widget.DrawerLayout>

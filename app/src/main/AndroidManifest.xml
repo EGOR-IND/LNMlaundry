@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.lnmlaundry">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/lnm_laundry_logo"
@@ -9,23 +11,29 @@
         android:roundIcon="@mipmap/lnm_laundry_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".signin_page"
-            android:screenOrientation="portrait">
+        <activity android:name=".dryClean"></activity>
+        <activity android:name=".regularWash" />
+        <activity
+            android:name=".signin_page"
+            android:screenOrientation="portrait"
+            android:theme="@style/signInTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".rates"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".past"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".pending"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".home"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".rates"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".past"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".pending"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
