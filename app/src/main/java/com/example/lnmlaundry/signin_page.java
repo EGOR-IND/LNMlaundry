@@ -165,15 +165,15 @@ public class signin_page extends AppCompatActivity {
         try {
             AlertDialog alertDialog = new AlertDialog.Builder(signin_page.this).create();
 
-            alertDialog.setTitle("Info");
-            alertDialog.setMessage("Internet not available, Cross check your internet connectivity and try again");
+            alertDialog.setTitle("Alert");
+            alertDialog.setMessage("Internet not available, check your internet connectivity and try again");
             alertDialog.setIcon(android.R.drawable.ic_dialog_alert);
             alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     signin_page.this.startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
                 }
             });
-            alertDialog.setCancelable(false);
+            alertDialog.setCanceledOnTouchOutside(false);
             alertDialog.show();
         } catch (Exception e) {
 
