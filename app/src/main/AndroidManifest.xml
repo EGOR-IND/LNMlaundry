@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.lnmlaundry">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -11,7 +12,7 @@
         android:roundIcon="@mipmap/lnm_laundry_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".dryClean"></activity>
+        <activity android:name=".dryClean" />
         <activity android:name=".regularWash" />
         <activity
             android:name=".signin_page"

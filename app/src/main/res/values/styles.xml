@@ -12,4 +12,10 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimaryDark">#4EB8FF</item>
     </style>
+
+    <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="android:textColorPrimary">@color/navMenuItemDisabled</item>
+        <item name="android:textColor">@color/navMenuItemDisabled</item>
+    </style>
 </resources>
