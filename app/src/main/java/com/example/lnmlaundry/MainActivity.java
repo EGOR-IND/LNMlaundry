@@ -307,6 +307,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.washTypeBar).setVisibility(View.GONE);
         findViewById(R.id.main_frame1).setVisibility(View.GONE);
         findViewById(R.id.main_frame2).setVisibility(View.VISIBLE);
+        findViewById(R.id.proceedBtn).setVisibility(View.GONE);
     }
 
     private void showHeaderBar(){
@@ -314,6 +315,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.washTypeBar).setVisibility(View.VISIBLE);
         findViewById(R.id.main_frame1).setVisibility(View.VISIBLE);
         findViewById(R.id.main_frame2).setVisibility(View.GONE);
+        findViewById(R.id.proceedBtn).setVisibility(View.VISIBLE);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment Blank = fragmentManager.findFragmentByTag("Blank Fragment");

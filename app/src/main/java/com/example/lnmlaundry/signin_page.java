@@ -49,7 +49,7 @@ public class signin_page extends AppCompatActivity {
         mProgress = new ProgressDialog(this, R.style.AppCompatAlertDialogStyle);
         mProgress.setTitle("Processing...");
         mProgress.setMessage("Please wait...");
-        mProgress.setCancelable(true);
+        mProgress.setCancelable(false);
         mProgress.setIndeterminate(true);
 
         mAuth = FirebaseAuth.getInstance();
@@ -75,15 +75,6 @@ public class signin_page extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (mProgress.isShowing()){
-            super.onBackPressed();
-        }
-        else
-            super.onBackPressed();
     }
 
     @Override
@@ -113,7 +104,6 @@ public class signin_page extends AppCompatActivity {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                mProgress.setCancelable(false);
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
                 mProgress.dismiss();

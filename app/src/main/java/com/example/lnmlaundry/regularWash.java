@@ -4,11 +4,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
+import java.util.zip.Inflater;
 
 public class regularWash extends Fragment {
 
@@ -20,7 +27,34 @@ public class regularWash extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_regular_wash, container, false);
+        View FragView = inflater.inflate(R.layout.activity_regular_wash, container, false);
+        ArrayList<String> clothCatList = new ArrayList<String>();
+        clothCatList.add("Jeans");
+        clothCatList.add("Pant");
+        clothCatList.add("Shirt");
+        clothCatList.add("T-shirt");
+        clothCatList.add("Lower");
+        clothCatList.add("Shorts");
+        clothCatList.add("Towel");
+        clothCatList.add("Bed sheet");
+        clothCatList.add("Pillow cover");
+        clothCatList.add("Top");
+
+        ArrayList<clothCat> clothCatArrayList = new ArrayList<clothCat>();
+        for (int i=0; i<10; i++)
+            clothCatArrayList.add(new clothCat(clothCatList.get(i)));
+
+        RecyclerView.Adapter adapter = new clothCatAdapter(clothCatArrayList);
+
+        RecyclerView recyclerView = (RecyclerView)FragView.findViewById(R.id.rwRecycler);
+        recyclerView.setHasFixedSize(true);
+
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(),2);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(adapter);
+
+        return FragView;
     }
 
     @Override

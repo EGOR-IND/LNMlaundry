@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/homePage"
     tools:context=".MainActivity"
-    tools:openDrawer="start">
+    tools:openDrawer="end">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -34,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:text="Laundry"
+                android:text="Priyanshi Drycleans"
                 android:textColor="@color/white"
                 android:fontFamily="@font/chewy"
                 android:textSize="24dp"/>
@@ -88,6 +88,19 @@
             android:layout_height="match_parent"
             android:layout_above="@id/navigationBar"
             android:layout_below="@id/washTypeBar"/>
+
+        <Button android:id="@+id/proceedBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:layout_marginBottom="10dp"
+            android:layout_above="@id/navigationBar"
+            android:layout_centerHorizontal="true"
+            android:text="Proceed"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:fontFamily="@font/baumans"
+            android:background="@color/colorPrimary"/>
 
         <LinearLayout android:id="@+id/navigationBar"
             android:layout_width="match_parent"
