@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 public class dryClean extends Fragment {
+    public static ArrayList<clothCat> clothCatArrayList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,9 +39,12 @@ public class dryClean extends Fragment {
         clothCatList.add("Pillow cover");
         clothCatList.add("Top");
 
-        ArrayList<clothCat> clothCatArrayList = new ArrayList<clothCat>();
-        for (int i=0; i<10; i++)
-            clothCatArrayList.add(new clothCat(clothCatList.get(i)));
+        clothCatArrayList = new ArrayList<clothCat>();
+        for (int i=0; i<10; i++){
+            clothCat clothCat = new clothCat(clothCatList.get(i));
+            clothCat.setQuantity(0);
+            clothCatArrayList.add(clothCat);
+        }
 
         RecyclerView.Adapter adapter = new clothCatAdapter(clothCatArrayList);
 
@@ -51,6 +55,7 @@ public class dryClean extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
+
 
         return FragView;
     }

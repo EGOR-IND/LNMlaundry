@@ -18,66 +18,83 @@
         <RelativeLayout android:id="@+id/headerBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:paddingTop="3dp"
-            android:paddingBottom="3dp"
-            android:paddingLeft="5dp">
+            android:paddingTop="5dp">
 
             <ImageView android:id="@+id/hamMenu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_menu_black_24dp"
                 android:clickable="true"
-                android:focusable="true"/>
+                android:focusable="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"/>
 
-            <TextView
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:text="Priyanshi Drycleans"
-                android:textColor="@color/white"
-                android:fontFamily="@font/chewy"
-                android:textSize="24dp"/>
+                android:src="@mipmap/lnm_laundry_logo"/>
         </RelativeLayout>
 
         <LinearLayout android:id="@+id/washTypeBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/headerBar">
+            android:layout_below="@id/headerBar"
+            android:orientation="horizontal">
 
-            <TextView android:id="@+id/rw"
-                android:layout_width="wrap_content"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/rw"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                app:cardCornerRadius="10dp"
+                app:cardBackgroundColor="@color/colorCategoryBar"
+                app:contentPadding="3dp"
                 android:layout_weight="0.5"
-                android:background="@color/colorCategoryBar"
-                android:fontFamily="@font/baumans"
-                android:gravity="center_horizontal"
-                android:paddingTop="3dp"
-                android:paddingBottom="3dp"
-                android:text="Regular wash"
-                android:textColor="#FFFFFF"
-                android:textSize="20dp"
                 android:clickable="true"
-                android:focusable="true"/>
+                android:focusable="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
 
-            <TextView android:id="@+id/dc"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Regular wash"
+                    android:layout_gravity="center"
+                    android:textSize="20dp"
+                    android:fontFamily="@font/baumans"
+                    android:textColor="@color/white"/>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/dc"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                app:cardCornerRadius="10dp"
+                app:cardBackgroundColor="@color/colorPrimaryDark"
+                app:contentPadding="3dp"
                 android:layout_weight="0.5"
-                android:background="@drawable/border"
-                android:fontFamily="@font/baumans"
-                android:gravity="center_horizontal"
-                android:paddingTop="3dp"
-                android:paddingBottom="3dp"
-                android:text="Dry clean"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="20dp"
                 android:clickable="true"
-                android:focusable="true"/>
+                android:focusable="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Dry clean"
+                    android:layout_gravity="center"
+                    android:textSize="20dp"
+                    android:fontFamily="@font/baumans"
+                    android:textColor="@color/white"/>
+            </androidx.cardview.widget.CardView>
         </LinearLayout>
 
 
-        <FrameLayout android:id="@+id/main_frame1"
+        <androidx.viewpager.widget.ViewPager android:id="@+id/main_frame1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@id/navigationBar"
@@ -100,7 +117,7 @@
             android:textColor="@color/white"
             android:textSize="20dp"
             android:fontFamily="@font/baumans"
-            android:background="@color/colorPrimary"/>
+            android:background="@drawable/ripple"/>
 
         <LinearLayout android:id="@+id/navigationBar"
             android:layout_width="match_parent"

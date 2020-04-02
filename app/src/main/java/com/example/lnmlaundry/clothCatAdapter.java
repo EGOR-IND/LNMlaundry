@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -13,12 +14,38 @@ import java.util.ArrayList;
 public class clothCatAdapter extends RecyclerView.Adapter<clothCatAdapter.MyViewHolder> {
     public ArrayList<clothCat> dataSet;
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView clothCat;
+    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        TextView clothCat, qty;
+        CardView dec, inc;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             this.clothCat = itemView.findViewById(R.id.clothCat);
+            this.qty = itemView.findViewById(R.id.qty);
+            this.dec = itemView.findViewById(R.id.dec);
+            this.inc = itemView.findViewById(R.id.inc);
+
+            dec.setTag(R.integer.btn_plus_view, itemView);
+            inc.setTag(R.integer.btn_minus_view, itemView);
+            dec.setOnClickListener(this);
+            inc.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (v.getId() == dec.getId()){
+                View tempView = (View) dec.getTag(R.integer.btn_minus_view);
+                int quantity = Integer.parseInt(qty.getText().toString());
+                if (quantity > 0)
+                    quantity--;
+                qty.setText(String.valueOf(quantity));
+            } else if (v.getId() == inc.getId()) {
+                View tempView = (View) inc.getTag(R.integer.btn_plus_view);
+                int quantity = Integer.parseInt(qty.getText().toString());
+                if (quantity < 50)
+                    quantity++;
+                qty.setText(String.valueOf(quantity));
+            }
         }
     }
 
@@ -40,6 +67,7 @@ public class clothCatAdapter extends RecyclerView.Adapter<clothCatAdapter.MyView
         TextView clothCat = holder.clothCat;
 
         clothCat.setText(dataSet.get(position).getClothCategory());
+        holder.qty.setText(String.valueOf(dryClean.clothCatArrayList.get(position).getQuantity()));
     }
 
     @Override

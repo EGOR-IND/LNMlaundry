@@ -2,18 +2,21 @@ package com.example.lnmlaundry;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
@@ -28,14 +31,18 @@ import com.squareup.picasso.Picasso;
 
 import static androidx.core.view.GravityCompat.*;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends FragmentActivity implements View.OnClickListener {
 
     private TextView home;
     private TextView pending;
     private TextView past;
     private TextView rates;
-    private TextView rw;
-    private TextView dc;
+    private CardView rw;
+    private CardView dc;
+
+    private static final int NUM_PAGES = 2;
+    private ViewPager mPager;
+    private PagerAdapter pagerAdapter;
 
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle drawerToggle;
@@ -52,8 +59,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         pending = (TextView)findViewById(R.id.pending);
         past = (TextView)findViewById(R.id.past);
         rates = (TextView)findViewById(R.id.rates);
-        rw = (TextView)findViewById(R.id.rw);
-        dc = (TextView)findViewById(R.id.dc);
+        rw = (CardView) findViewById(R.id.rw);
+        dc = (CardView) findViewById(R.id.dc);
+
+        mPager = (ViewPager) findViewById(R.id.main_frame1);
+        pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
+        mPager.setAdapter(pagerAdapter);
+        mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position == 0){
+                    rw.setCardBackgroundColor(getResources().getColor(R.color.colorCategoryBar));
+                    rw.setCardElevation(10);
+                    dc.setCardBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                    dc.setCardElevation(0);
+                }else {
+                    dc.setCardBackgroundColor(getResources().getColor(R.color.colorCategoryBar));
+                    dc.setCardElevation(10);
+                    rw.setCardBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                    rw.setCardElevation(0);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        rw.setCardElevation(10);
 
         home.setOnClickListener(this);
         pending.setOnClickListener(this);
@@ -64,34 +102,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         rw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                rw.setTextColor(getResources().getColor(R.color.white));
-                rw.setBackgroundColor(getResources().getColor(R.color.colorCategoryBar));
-                dc.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                dc.setBackground(getResources().getDrawable(R.drawable.border));
-                regularWashFragment();
+                rw.setCardBackgroundColor(getResources().getColor(R.color.colorCategoryBar));
+                rw.setCardElevation(10);
+                dc.setCardBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                dc.setCardElevation(0);
+                mPager.setCurrentItem(0);
             }
         });
 
         dc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dc.setTextColor(getResources().getColor(R.color.white));
-                dc.setBackgroundColor(getResources().getColor(R.color.colorCategoryBar));
-                rw.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                rw.setBackground(getResources().getDrawable(R.drawable.border));
-                dryCleanFragment();
+                dc.setCardBackgroundColor(getResources().getColor(R.color.colorCategoryBar));
+                dc.setCardElevation(10);
+                rw.setCardBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                rw.setCardElevation(0);
+                mPager.setCurrentItem(1);
             }
         });
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment rw1 = fragmentManager.findFragmentByTag("Regular wash");
-
-        if(rw1 == null)
-            rw1 = new regularWash();
-
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.main_frame1, rw1, "Regular wash");
-        transaction.commit();
 
         home.setTextColor(getResources().getColor(R.color.colorPrimary));
         setTextViewDrawableColor(home,R.color.colorPrimary);
@@ -220,36 +248,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void regularWashFragment(){
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment rw = fragmentManager.findFragmentByTag("Regular wash");
-
-        if(rw == null)
-            rw = new regularWash();
-
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.main_frame1, rw, "Regular wash");
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
-
-    public void dryCleanFragment(){
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment dc = fragmentManager.findFragmentByTag("Dry clean");
-
-        if(dc == null)
-            dc = new dryClean();
-
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.main_frame1, dc, "Dry clean");
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
-
     public void pendingFragment(){
 
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -328,5 +326,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+    private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
+        public ScreenSlidePagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            switch (position){
+                case 0:
+                    return new regularWash();
+                case 1:
+                    return new dryClean();
+            }
+            return null;
+        }
+
+        @Override
+        public int getCount() {
+            return NUM_PAGES;
+        }
     }
 }
