@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class clothCatAdapter extends RecyclerView.Adapter<clothCatAdapter.MyViewHolder> {
-    public ArrayList<clothCat> dataSet;
+    public ArrayList<String> dataSet;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView clothCat, qty;
@@ -49,7 +49,7 @@ public class clothCatAdapter extends RecyclerView.Adapter<clothCatAdapter.MyView
         }
     }
 
-    public clothCatAdapter(ArrayList<clothCat> dataSet) {
+    public clothCatAdapter(ArrayList<String> dataSet) {
         this.dataSet = dataSet;
     }
 
@@ -66,8 +66,7 @@ public class clothCatAdapter extends RecyclerView.Adapter<clothCatAdapter.MyView
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         TextView clothCat = holder.clothCat;
 
-        clothCat.setText(dataSet.get(position).getClothCategory());
-        holder.qty.setText(String.valueOf(dryClean.clothCatArrayList.get(position).getQuantity()));
+        clothCat.setText(dataSet.get(position));
     }
 
     @Override

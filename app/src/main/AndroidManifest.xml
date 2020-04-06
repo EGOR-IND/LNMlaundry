@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/lnm_laundry_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".home"></activity>
         <activity android:name=".dryClean" />
         <activity android:name=".regularWash" />
         <activity

@@ -2,7 +2,6 @@ package com.example.lnmlaundry;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -13,10 +12,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 
 public class dryClean extends Fragment {
-    public static ArrayList<clothCat> clothCatArrayList;
+    private DatabaseReference mDatabaseReference;
+    firebaseHelper mFirebaseHelper;
+    RecyclerView.Adapter adapter;
+    RecyclerView recyclerView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -27,35 +31,19 @@ public class dryClean extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View FragView = inflater.inflate(R.layout.activity_dry_clean, container, false);
-        ArrayList<String> clothCatList = new ArrayList<String>();
-        clothCatList.add("Jeans");
-        clothCatList.add("Pant");
-        clothCatList.add("Shirt");
-        clothCatList.add("T-shirt");
-        clothCatList.add("Lower");
-        clothCatList.add("Shorts");
-        clothCatList.add("Towel");
-        clothCatList.add("Bed sheet");
-        clothCatList.add("Pillow cover");
-        clothCatList.add("Top");
 
-        clothCatArrayList = new ArrayList<clothCat>();
-        for (int i=0; i<10; i++){
-            clothCat clothCat = new clothCat(clothCatList.get(i));
-            clothCat.setQuantity(0);
-            clothCatArrayList.add(clothCat);
-        }
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("items");
 
-        RecyclerView.Adapter adapter = new clothCatAdapter(clothCatArrayList);
+        mFirebaseHelper = new firebaseHelper(mDatabaseReference);
 
-        RecyclerView recyclerView = (RecyclerView)FragView.findViewById(R.id.dcRecycler);
-        recyclerView.setHasFixedSize(true);
+        adapter = new clothCatAdapter(mFirebaseHelper.retrieve());
+
+        recyclerView = (RecyclerView)FragView.findViewById(R.id.dcRecycler);
 
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(),2);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
-
 
         return FragView;
     }

@@ -2,14 +2,12 @@ package com.example.lnmlaundry;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
@@ -37,10 +35,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private TextView pending;
     private TextView past;
     private TextView rates;
-    private CardView rw;
-    private CardView dc;
-
-    private static final int NUM_PAGES = 2;
+    private ImageView hamMenu;
+    
+    private static final int NUM_PAGES = 4;
     private ViewPager mPager;
     private PagerAdapter pagerAdapter;
 
@@ -59,10 +56,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         pending = (TextView)findViewById(R.id.pending);
         past = (TextView)findViewById(R.id.past);
         rates = (TextView)findViewById(R.id.rates);
-        rw = (CardView) findViewById(R.id.rw);
-        dc = (CardView) findViewById(R.id.dc);
+        hamMenu = (ImageView)findViewById(R.id.menu);
 
-        mPager = (ViewPager) findViewById(R.id.main_frame1);
+        mPager = (ViewPager) findViewById(R.id.main_frame2);
         pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(pagerAdapter);
         mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -74,15 +70,45 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             @Override
             public void onPageSelected(int position) {
                 if (position == 0){
-                    rw.setCardBackgroundColor(getResources().getColor(R.color.colorCategoryBar));
-                    rw.setCardElevation(10);
-                    dc.setCardBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-                    dc.setCardElevation(0);
-                }else {
-                    dc.setCardBackgroundColor(getResources().getColor(R.color.colorCategoryBar));
-                    dc.setCardElevation(10);
-                    rw.setCardBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-                    rw.setCardElevation(0);
+                    home.setTextColor(getResources().getColor(R.color.colorPrimary));
+                    setTextViewDrawableColor(home,R.color.colorPrimary);
+                    pending.setTextColor(getResources().getColor(R.color.iconDisabed));
+                    setTextViewDrawableColor(pending,R.color.iconDisabed);
+                    past.setTextColor(getResources().getColor(R.color.iconDisabed));
+                    setTextViewDrawableColor(past,R.color.iconDisabed);
+                    rates.setTextColor(getResources().getColor(R.color.iconDisabed));
+                    setTextViewDrawableColor(rates,R.color.iconDisabed);
+                    hamMenu.setVisibility(View.VISIBLE);
+                }else if (position == 1){
+                    pending.setTextColor(getResources().getColor(R.color.pendingIconEnabled));
+                    setTextViewDrawableColor(pending,R.color.pendingIconEnabled);
+                    past.setTextColor(getResources().getColor(R.color.iconDisabed));
+                    setTextViewDrawableColor(past,R.color.iconDisabed);
+                    rates.setTextColor(getResources().getColor(R.color.iconDisabed));
+                    setTextViewDrawableColor(rates,R.color.iconDisabed);
+                    home.setTextColor(getResources().getColor(R.color.iconDisabed));
+                    setTextViewDrawableColor(home,R.color.iconDisabed);
+                    hamMenu.setVisibility(View.GONE);
+                } else if (position == 2){
+                    past.setTextColor(getResources().getColor(R.color.pastIconEnabled));
+                    setTextViewDrawableColor(past,R.color.pastIconEnabled);
+                    rates.setTextColor(getResources().getColor(R.color.iconDisabed));
+                    setTextViewDrawableColor(rates,R.color.iconDisabed);
+                    home.setTextColor(getResources().getColor(R.color.iconDisabed));
+                    setTextViewDrawableColor(home,R.color.iconDisabed);
+                    pending.setTextColor(getResources().getColor(R.color.iconDisabed));
+                    setTextViewDrawableColor(pending,R.color.iconDisabed);
+                    hamMenu.setVisibility(View.GONE);
+                } else if (position == 3){
+                    rates.setTextColor(getResources().getColor(R.color.colorPrimary));
+                    setTextViewDrawableColor(rates,R.color.colorPrimary);
+                    past.setTextColor(getResources().getColor(R.color.iconDisabed));
+                    setTextViewDrawableColor(past,R.color.iconDisabed);
+                    home.setTextColor(getResources().getColor(R.color.iconDisabed));
+                    setTextViewDrawableColor(home,R.color.iconDisabed);
+                    pending.setTextColor(getResources().getColor(R.color.iconDisabed));
+                    setTextViewDrawableColor(pending,R.color.iconDisabed);
+                    hamMenu.setVisibility(View.GONE);
                 }
             }
 
@@ -91,35 +117,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
             }
         });
-        rw.setCardElevation(10);
 
         home.setOnClickListener(this);
         pending.setOnClickListener(this);
         past.setOnClickListener(this);
         rates.setOnClickListener(this);
-        findViewById(R.id.main_frame2).setVisibility(View.GONE);
-
-        rw.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                rw.setCardBackgroundColor(getResources().getColor(R.color.colorCategoryBar));
-                rw.setCardElevation(10);
-                dc.setCardBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-                dc.setCardElevation(0);
-                mPager.setCurrentItem(0);
-            }
-        });
-
-        dc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dc.setCardBackgroundColor(getResources().getColor(R.color.colorCategoryBar));
-                dc.setCardElevation(10);
-                rw.setCardBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-                rw.setCardElevation(0);
-                mPager.setCurrentItem(1);
-            }
-        });
+        hamMenu.setOnClickListener(this);
 
         home.setTextColor(getResources().getColor(R.color.colorPrimary));
         setTextViewDrawableColor(home,R.color.colorPrimary);
@@ -130,12 +133,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         drawerToggle.syncState();
 
         navigationView = (NavigationView)findViewById(R.id.nav_view);
-        findViewById(R.id.hamMenu).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                drawerLayout.openDrawer(START);
-            }
-        });
+
         View headerView = navigationView.getHeaderView(0);
         TextView mName = (TextView) headerView.findViewById(R.id.name);
         TextView mEmail = (TextView) headerView.findViewById(R.id.email);
@@ -168,6 +166,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             }
         }
     }
+
     @Override
     public void onClick(View v) {
 
@@ -181,7 +180,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 setTextViewDrawableColor(past,R.color.iconDisabed);
                 rates.setTextColor(getResources().getColor(R.color.iconDisabed));
                 setTextViewDrawableColor(rates,R.color.iconDisabed);
-                showHeaderBar();
+                mPager.setCurrentItem(0);
+                hamMenu.setVisibility(View.VISIBLE);
                 break;
 
             case R.id.pending:
@@ -193,8 +193,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 setTextViewDrawableColor(rates,R.color.iconDisabed);
                 home.setTextColor(getResources().getColor(R.color.iconDisabed));
                 setTextViewDrawableColor(home,R.color.iconDisabed);
-                pendingFragment();
-                hideHeaderBar();
+                mPager.setCurrentItem(1);
+                hamMenu.setVisibility(View.GONE);
                 break;
 
             case R.id.past:
@@ -206,8 +206,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 setTextViewDrawableColor(home,R.color.iconDisabed);
                 pending.setTextColor(getResources().getColor(R.color.iconDisabed));
                 setTextViewDrawableColor(pending,R.color.iconDisabed);
-                pastFragment();
-                hideHeaderBar();
+                mPager.setCurrentItem(2);
+                hamMenu.setVisibility(View.GONE);
                 break;
 
             case R.id.rates:
@@ -219,8 +219,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 setTextViewDrawableColor(home,R.color.iconDisabed);
                 pending.setTextColor(getResources().getColor(R.color.iconDisabed));
                 setTextViewDrawableColor(pending,R.color.iconDisabed);
-                ratesFragment();
-                hideHeaderBar();
+                mPager.setCurrentItem(3);
+                hamMenu.setVisibility(View.GONE);
+                break;
+
+            case R.id.menu:
+                this.drawerLayout.openDrawer(START);
                 break;
         }
     }
@@ -248,51 +252,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         }
     }
 
-    public void pendingFragment(){
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment pending = fragmentManager.findFragmentByTag("pending");
-
-        if(pending == null)
-            pending = new pending();
-
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.main_frame2, pending, "pending");
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
-
-    public void pastFragment(){
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment past = fragmentManager.findFragmentByTag("past");
-
-        if(past == null)
-            past = new past();
-
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.main_frame2, past, "past");
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
-
-    public void ratesFragment(){
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment rates = fragmentManager.findFragmentByTag("rates");
-
-        if(rates == null)
-            rates = new rates();
-
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.main_frame2, rates, "rates");
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
-
     private void signOut() {
         FirebaseAuth.getInstance()
                 .signOut();
@@ -300,33 +259,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         startActivity(new Intent(MainActivity.this, signin_page.class));
     }
 
-    private void hideHeaderBar(){
-        findViewById(R.id.headerBar).setVisibility(View.GONE);
-        findViewById(R.id.washTypeBar).setVisibility(View.GONE);
-        findViewById(R.id.main_frame1).setVisibility(View.GONE);
-        findViewById(R.id.main_frame2).setVisibility(View.VISIBLE);
-        findViewById(R.id.proceedBtn).setVisibility(View.GONE);
-    }
 
-    private void showHeaderBar(){
-        findViewById(R.id.headerBar).setVisibility(View.VISIBLE);
-        findViewById(R.id.washTypeBar).setVisibility(View.VISIBLE);
-        findViewById(R.id.main_frame1).setVisibility(View.VISIBLE);
-        findViewById(R.id.main_frame2).setVisibility(View.GONE);
-        findViewById(R.id.proceedBtn).setVisibility(View.VISIBLE);
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment Blank = fragmentManager.findFragmentByTag("Blank Fragment");
-
-        if(Blank == null)
-            Blank = new BlankFragment();
-
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.main_frame2, Blank, "Blank Fragment");
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
         public ScreenSlidePagerAdapter(FragmentManager fm) {
             super(fm);
@@ -336,9 +269,13 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         public Fragment getItem(int position) {
             switch (position){
                 case 0:
-                    return new regularWash();
+                    return new home();
                 case 1:
-                    return new dryClean();
+                    return new pending();
+                case 2:
+                    return new past();
+                case 3:
+                    return new rates();
             }
             return null;
         }

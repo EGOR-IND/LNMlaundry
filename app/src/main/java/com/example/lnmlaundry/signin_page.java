@@ -32,19 +32,24 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class signin_page extends AppCompatActivity {
 
     private static final String TAG = "LNMLaundry";
     private static final int RC = 234;
     FirebaseAuth mAuth;
+    private DatabaseReference mDatabaseReference;
     GoogleApiClient googleApiClient;
     ProgressDialog mProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super   .onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin_page);
+
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
 
         mProgress = new ProgressDialog(this, R.style.AppCompatAlertDialogStyle);
         mProgress.setTitle("Processing...");
@@ -123,6 +128,8 @@ public class signin_page extends AppCompatActivity {
                 if (task.isSuccessful()){
                     Log.d(TAG, "signInWithCredentials : success");
                     FirebaseUser user = mAuth.getCurrentUser();
+                    mDatabaseReference.child("Users").child(user.getUid()).child("email").setValue(user.getEmail());
+                    mDatabaseReference.child("Users").child(user.getUid()).child("name").setValue(user.getDisplayName());
                     finish();
                     startActivity(new Intent(signin_page.this, MainActivity.class));
                     Toast.makeText(signin_page.this, "User Signed In", Toast.LENGTH_SHORT).show();
