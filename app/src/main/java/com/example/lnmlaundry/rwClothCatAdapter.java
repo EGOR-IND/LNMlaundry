@@ -1,5 +1,6 @@
 package com.example.lnmlaundry;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +20,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class clothCatAdapter extends RecyclerView.Adapter<clothCatAdapter.MyViewHolder> {
+public class rwClothCatAdapter extends RecyclerView.Adapter<rwClothCatAdapter.MyViewHolder> {
     public ArrayList<orderType> dataSet;
     public static Long orderNo;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser mUser = mAuth.getCurrentUser();
     DatabaseReference mReference = FirebaseDatabase.getInstance().getReference();
+
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView clothCat, qty;
@@ -66,13 +68,13 @@ public class clothCatAdapter extends RecyclerView.Adapter<clothCatAdapter.MyView
         }
 
         public void uploadOrder(){
-            clothCatAdapter catAdapter = new clothCatAdapter();
+            rwClothCatAdapter catAdapter = new rwClothCatAdapter();
             final Long orderNo = catAdapter.orderNo;
             mReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (Integer.parseInt(qty.getText().toString()) != 0){
-                        mReference.child("Orders").child(mUser.getUid()).child("Order"+(orderNo+1)).child("Dry clean").child(clothCat.getText().toString()).setValue(Integer.parseInt(qty.getText().toString()));
+                        mReference.child("Orders").child(mUser.getUid()).child("Order"+(orderNo+1)).child("Regular wash").child(clothCat.getText().toString()).setValue(Integer.parseInt(qty.getText().toString()));
                     }
                 }
 
@@ -84,9 +86,10 @@ public class clothCatAdapter extends RecyclerView.Adapter<clothCatAdapter.MyView
         }
 
     }
-    public clothCatAdapter(){}
 
-    public clothCatAdapter(ArrayList<orderType> dataSet) {
+    public rwClothCatAdapter(){}
+
+    public rwClothCatAdapter(ArrayList<orderType> dataSet) {
         this.dataSet = dataSet;
         mReference.addValueEventListener(new ValueEventListener() {
             @Override

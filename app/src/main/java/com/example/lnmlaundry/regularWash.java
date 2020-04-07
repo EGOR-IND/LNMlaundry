@@ -7,17 +7,15 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import java.util.ArrayList;
 
 public class regularWash extends Fragment {
-    private DatabaseReference mDatabaseReference;
-    RecyclerView.Adapter adapter;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,11 +26,33 @@ public class regularWash extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View FragView = inflater.inflate(R.layout.activity_regular_wash, container, false);
 
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("items");
+        ArrayList<String> items = new ArrayList<String>();
+        items.add("Shirt");
+        items.add("T-Shirt");
+        items.add("Jeans");
+        items.add("Trousers");
+        items.add("Lower");
+        items.add("Shorts");
+        items.add("Towel");
+        items.add("Bed sheets");
+        items.add("Pillow cover");
+        items.add("Top");
+        items.add("Jacket");
+        items.add("Sweater");
+        items.add("Hoodie");
+        items.add("Socks");
+        items.add("Thermals");
+        items.add("Handkerchief");
+        items.add("Face Towel");
+        items.add("Kurta");
+        items.add("Pajama");
 
-        firebaseHelper mFirebaseHelper = new firebaseHelper(mDatabaseReference);
+        ArrayList<orderType> orderTypes = new ArrayList<orderType>();
+        for (int i=0; i<items.size(); i++){
+            orderTypes.add(new orderType(items.get(i), 0));
+        }
 
-        adapter = new clothCatAdapter(mFirebaseHelper.retrieve());
+        RecyclerView.Adapter adapter = new rwClothCatAdapter(orderTypes);
 
         RecyclerView recyclerView = (RecyclerView)FragView.findViewById(R.id.rwRecycler);
         recyclerView.setHasFixedSize(true);
@@ -40,6 +60,7 @@ public class regularWash extends Fragment {
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(),2);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER);
         recyclerView.setAdapter(adapter);
 
         return FragView;

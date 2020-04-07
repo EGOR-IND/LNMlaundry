@@ -59,6 +59,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         hamMenu = (ImageView)findViewById(R.id.menu);
 
         mPager = (ViewPager) findViewById(R.id.main_frame2);
+        mPager.setOffscreenPageLimit(3);
         pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(pagerAdapter);
         mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

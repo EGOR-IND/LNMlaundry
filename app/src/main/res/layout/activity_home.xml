@@ -81,7 +81,7 @@
             android:layout_height="match_parent"
             android:layout_below="@id/washTypeBar"/>
 
-        <Button
+        <Button android:id="@+id/proceed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/ripple"

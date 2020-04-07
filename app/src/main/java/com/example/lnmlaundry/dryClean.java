@@ -7,20 +7,15 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
+import java.util.ArrayList;
 
 public class dryClean extends Fragment {
-    private DatabaseReference mDatabaseReference;
-    firebaseHelper mFirebaseHelper;
-    RecyclerView.Adapter adapter;
-    RecyclerView recyclerView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,17 +27,40 @@ public class dryClean extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View FragView = inflater.inflate(R.layout.activity_dry_clean, container, false);
 
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("items");
+        ArrayList<String> items = new ArrayList<String>();
+        items.add("Shirt");
+        items.add("T-Shirt");
+        items.add("Jeans");
+        items.add("Trousers");
+        items.add("Lower");
+        items.add("Shorts");
+        items.add("Towel");
+        items.add("Bed sheets");
+        items.add("Pillow cover");
+        items.add("Top");
+        items.add("Jacket");
+        items.add("Sweater");
+        items.add("Hoodie");
+        items.add("Socks");
+        items.add("Thermals");
+        items.add("Handkerchief");
+        items.add("Face Towel");
+        items.add("Kurta");
+        items.add("Pajama");
 
-        mFirebaseHelper = new firebaseHelper(mDatabaseReference);
+        ArrayList<orderType> orderTypes = new ArrayList<orderType>();
+        for (int i=0; i<items.size(); i++){
+            orderTypes.add(new orderType(items.get(i), 0));
+        }
 
-        adapter = new clothCatAdapter(mFirebaseHelper.retrieve());
+        RecyclerView.Adapter adapter = new clothCatAdapter(orderTypes);
 
-        recyclerView = (RecyclerView)FragView.findViewById(R.id.dcRecycler);
+        RecyclerView recyclerView = (RecyclerView)FragView.findViewById(R.id.dcRecycler);
 
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(),2);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER);
         recyclerView.setAdapter(adapter);
 
         return FragView;

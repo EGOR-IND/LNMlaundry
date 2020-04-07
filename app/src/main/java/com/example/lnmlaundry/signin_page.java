@@ -91,8 +91,8 @@ public class signin_page extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        finish();
                         startActivity(new Intent(signin_page.this, MainActivity.class));
+                        finish();
                     }
                 }, 2000);
             } else onNotOnline();
@@ -130,6 +130,7 @@ public class signin_page extends AppCompatActivity {
                     FirebaseUser user = mAuth.getCurrentUser();
                     mDatabaseReference.child("Users").child(user.getUid()).child("email").setValue(user.getEmail());
                     mDatabaseReference.child("Users").child(user.getUid()).child("name").setValue(user.getDisplayName());
+                    mDatabaseReference.child("Users").child(user.getUid()).child("orders").setValue(0);
                     finish();
                     startActivity(new Intent(signin_page.this, MainActivity.class));
                     Toast.makeText(signin_page.this, "User Signed In", Toast.LENGTH_SHORT).show();
