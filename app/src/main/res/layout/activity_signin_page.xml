@@ -12,5 +12,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:background="@drawable/sign_in_3"/>
+        android:background="@drawable/signin_bg"
+        android:drawableRight="@drawable/google"
+        android:drawablePadding="10dp"
+        android:paddingLeft="23dp"
+        android:paddingRight="15dp"
+        android:text="Sign in"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20dp" />
 </RelativeLayout>
