@@ -3,9 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginLeft="15dp"
-    android:layout_marginRight="15dp"
-    android:layout_marginTop="10dp"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:layout_marginTop="15dp"
     android:layout_marginBottom="10dp"
     android:background="@drawable/border2">
 
@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Shirt"
-        android:textSize="20dp"
+        android:textSize="15dp"
         android:textColor="@color/colorPrimaryDark"
         android:layout_centerHorizontal="true"/>
 

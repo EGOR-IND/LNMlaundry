@@ -23,6 +23,8 @@ import java.util.ArrayList;
 public class rwClothCatAdapter extends RecyclerView.Adapter<rwClothCatAdapter.MyViewHolder> {
     public ArrayList<orderType> dataSet;
     public static Long orderNo;
+    public static int clothCount = 0;
+
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser mUser = mAuth.getCurrentUser();
     DatabaseReference mReference = FirebaseDatabase.getInstance().getReference();
@@ -57,12 +59,14 @@ public class rwClothCatAdapter extends RecyclerView.Adapter<rwClothCatAdapter.My
                 if (quantity > 0)
                     quantity--;
                 qty.setText(String.valueOf(quantity));
+                clothCount--;
             } else if (v.getId() == inc.getId()) {
                 View tempView = (View) inc.getTag(R.integer.btn_plus_view);
                 quantity = Integer.parseInt(qty.getText().toString());
                 if (quantity < 50)
                     quantity++;
                 qty.setText(String.valueOf(quantity));
+                clothCount++;
             }
             uploadOrder();
         }
@@ -70,19 +74,12 @@ public class rwClothCatAdapter extends RecyclerView.Adapter<rwClothCatAdapter.My
         public void uploadOrder(){
             rwClothCatAdapter catAdapter = new rwClothCatAdapter();
             final Long orderNo = catAdapter.orderNo;
-            mReference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (Integer.parseInt(qty.getText().toString()) != 0){
-                        mReference.child("Orders").child(mUser.getUid()).child("Order"+(orderNo+1)).child("Regular wash").child(clothCat.getText().toString()).setValue(Integer.parseInt(qty.getText().toString()));
-                    }
-                }
+            if (Integer.parseInt(qty.getText().toString()) != 0){
+                mReference.child("Orders").child(mUser.getUid()).child("Order"+(orderNo+1)).child("Regular wash").child(clothCat.getText().toString()).setValue(Integer.parseInt(qty.getText().toString()));
+            } else {
+                mReference.child("Orders").child(mUser.getUid()).child("Order"+(orderNo+1)).child("Regular wash").child(clothCat.getText().toString()).setValue(null);
+            }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
         }
 
     }

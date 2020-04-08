@@ -25,11 +25,19 @@ import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import static androidx.core.view.GravityCompat.*;
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
+
+    final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    final FirebaseUser mUser = mAuth.getCurrentUser();
+    final DatabaseReference mReference = FirebaseDatabase.getInstance().getReference();
+    final String uid = mUser.getUid();
 
     private TextView home;
     private TextView pending;
@@ -231,11 +239,21 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     @Override
+    public boolean isFinishing() {
+        if (com.example.lnmlaundry.home.inAppStatus == 0){
+            mReference.child("Orders").child(uid).child("Order"+(rwClothCatAdapter.orderNo+1)).setValue(null);
+        }
+        return super.isFinishing();
+    }
+
+    @Override
     public void onBackPressed() {
         if (this.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             this.drawerLayout.closeDrawer(GravityCompat.START);
         } else {
             if (doubleBackToExitPressedOnce) {
+                clothCatAdapter.clothCount = 0;
+                rwClothCatAdapter.clothCount = 0;
                 finish();
                 return;
             }

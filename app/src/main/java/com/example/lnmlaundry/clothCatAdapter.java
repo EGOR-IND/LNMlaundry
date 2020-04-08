@@ -22,6 +22,8 @@ import java.util.ArrayList;
 public class clothCatAdapter extends RecyclerView.Adapter<clothCatAdapter.MyViewHolder> {
     public ArrayList<orderType> dataSet;
     public static Long orderNo;
+    public static int clothCount = 0;
+
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser mUser = mAuth.getCurrentUser();
     DatabaseReference mReference = FirebaseDatabase.getInstance().getReference();
@@ -55,12 +57,14 @@ public class clothCatAdapter extends RecyclerView.Adapter<clothCatAdapter.MyView
                 if (quantity > 0)
                     quantity--;
                 qty.setText(String.valueOf(quantity));
+                clothCount--;
             } else if (v.getId() == inc.getId()) {
                 View tempView = (View) inc.getTag(R.integer.btn_plus_view);
                 quantity = Integer.parseInt(qty.getText().toString());
                 if (quantity < 50)
                     quantity++;
                 qty.setText(String.valueOf(quantity));
+                clothCount++;
             }
             uploadOrder();
         }
@@ -68,19 +72,11 @@ public class clothCatAdapter extends RecyclerView.Adapter<clothCatAdapter.MyView
         public void uploadOrder(){
             clothCatAdapter catAdapter = new clothCatAdapter();
             final Long orderNo = catAdapter.orderNo;
-            mReference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (Integer.parseInt(qty.getText().toString()) != 0){
-                        mReference.child("Orders").child(mUser.getUid()).child("Order"+(orderNo+1)).child("Dry clean").child(clothCat.getText().toString()).setValue(Integer.parseInt(qty.getText().toString()));
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
+            if (Integer.parseInt(qty.getText().toString()) != 0){
+                mReference.child("Orders").child(mUser.getUid()).child("Order"+(orderNo+1)).child("Dry clean").child(clothCat.getText().toString()).setValue(Integer.parseInt(qty.getText().toString()));
+            } else {
+                mReference.child("Orders").child(mUser.getUid()).child("Order"+(orderNo+1)).child("Dry clean").child(clothCat.getText().toString()).setValue(null);
+            }
         }
 
     }

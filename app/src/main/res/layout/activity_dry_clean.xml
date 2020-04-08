@@ -7,4 +7,5 @@
     android:scrollbars="vertical"
     android:id="@+id/dcRecycler"
     tools:context=".dryClean"
-    android:paddingBottom="50dp"/>
+    android:paddingBottom="50dp"
+    android:scrollbarThumbVertical="@drawable/scrollbar_theme"/>
