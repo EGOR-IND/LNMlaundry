@@ -7,9 +7,10 @@
     tools:context=".signin_page"
     android:background="@drawable/background2">
 
-    <com.google.android.gms.common.SignInButton
+    <Button
         android:id="@+id/signin_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"/>
+        android:layout_centerInParent="true"
+        android:background="@drawable/sign_in_3"/>
 </RelativeLayout>
