@@ -6,4 +6,5 @@
     android:layout_height="match_parent"
     android:scrollbars="vertical"
     android:id="@+id/dcRecycler"
-    tools:context=".dryClean"/>
+    tools:context=".dryClean"
+    android:paddingBottom="50dp"/>

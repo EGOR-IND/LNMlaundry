@@ -13,11 +13,20 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class home extends Fragment {
     private CardView rw;
     private CardView dc;
-
+    private Button proceedBtn;
     private static final int NUM_PAGES = 2;
     private ViewPager mPager;
     private PagerAdapter pagerAdapter;
@@ -34,6 +43,7 @@ public class home extends Fragment {
 
         rw = (CardView) Fragview.findViewById(R.id.rw);
         dc = (CardView) Fragview.findViewById(R.id.dc);
+        proceedBtn = (Button) Fragview.findViewById(R.id.proceed);
 
         mPager = (ViewPager) Fragview.findViewById(R.id.main_frame1);
         pagerAdapter = new ScreenSlidePagerAdapter(getActivity().getSupportFragmentManager());
@@ -88,6 +98,17 @@ public class home extends Fragment {
             }
         });
 
+        proceedBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                final FirebaseUser mUser = mAuth.getCurrentUser();
+                final DatabaseReference mReference = FirebaseDatabase.getInstance().getReference();
+                clothCatAdapter mAdapter = new clothCatAdapter();
+                Long orederNo = clothCatAdapter.orderNo + 1;
+                mReference.child("Users").child(mUser.getUid()).child("orders").setValue(orederNo);
+            }
+        });
         return Fragview;
     }
 
