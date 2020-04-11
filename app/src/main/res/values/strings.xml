@@ -15,6 +15,15 @@
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hostel_prompt">Choose your hostel</string>
+
+    <string-array name="hostel_array">
+        <item>BH-1</item>
+        <item>BH-2</item>
+        <item>BH-3</item>
+        <item>BH-4</item>
+        <item>GH</item>
+    </string-array>
+
 </resources>
+

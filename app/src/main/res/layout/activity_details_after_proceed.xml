@@ -29,10 +29,120 @@
             android:paddingLeft="10dp"/>
     </RelativeLayout>
 
-    <RelativeLayout
+    <RelativeLayout android:id="@+id/userDetails"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/header">
+        android:layout_below="@id/header"
+        android:layout_above="@id/lowerSec">
 
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:columnCount="2">
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="name :"
+                android:textSize="18dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:padding="10dp"/>
+            <TextView android:id="@+id/userName"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textSize="18dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:padding="10dp"/>
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="email :"
+                android:textSize="18dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:padding="10dp"/>
+            <TextView android:id="@+id/emailId"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textSize="18dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:padding="10dp"/>
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="phone no :"
+                android:textSize="18dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:padding="10dp"/>
+            <EditText android:id="@+id/phoneNo"
+                android:layout_height="wrap_content"
+                android:layout_width="200dp"
+                android:hint="phone no."
+                android:textColorHint="#64b5f6"
+                android:maxLength="10"
+                android:text=""
+                android:textSize="18dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:padding="10dp"
+                android:background="@drawable/edittext_bg"
+                android:inputType="number|phone"/>
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="hostel :"
+                android:textSize="18dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:padding="10dp"/>
+            <Spinner android:id="@+id/hostelList"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:prompt="@string/hostel_prompt"/>
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="room no :"
+                android:textSize="18dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="20dp"/>
+            <EditText android:id="@+id/room"
+                android:layout_height="wrap_content"
+                android:layout_width="200dp"
+                android:hint="room-no."
+                android:textColorHint="#64b5f6"
+                android:text=""
+                android:textSize="18dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:padding="10dp"
+                android:background="@drawable/edittext_bg"
+                android:inputType="textCapCharacters"/>
+        </GridLayout>
+    </RelativeLayout>
+
+    <RelativeLayout android:id="@+id/lowerSec"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/lowersec_bg"
+        android:layout_alignParentBottom="true">
+
+        <Button android:id="@+id/nextBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/signin_bg"
+            android:backgroundTint="@color/white"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="170dp"
+            android:text="Next"
+            android:textSize="20dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:fontFamily="@font/baumans"/>
     </RelativeLayout>
 </RelativeLayout>

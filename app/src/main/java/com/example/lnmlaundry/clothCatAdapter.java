@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 public class clothCatAdapter extends RecyclerView.Adapter<clothCatAdapter.MyViewHolder> {
     public ArrayList<orderType> dataSet;
-    public static Long orderNo;
+    public static long orderNo;
     public static int clothCount = 0;
 
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -46,6 +46,8 @@ public class clothCatAdapter extends RecyclerView.Adapter<clothCatAdapter.MyView
             inc.setTag(R.integer.btn_minus_view, itemView);
             dec.setOnClickListener(this);
             inc.setOnClickListener(this);
+
+            uploadOrder();
         }
 
         @Override
@@ -70,8 +72,6 @@ public class clothCatAdapter extends RecyclerView.Adapter<clothCatAdapter.MyView
         }
 
         public void uploadOrder(){
-            clothCatAdapter catAdapter = new clothCatAdapter();
-            final Long orderNo = catAdapter.orderNo;
             if (Integer.parseInt(qty.getText().toString()) != 0){
                 mReference.child("Orders").child(mUser.getUid()).child("Order"+(orderNo+1)).child("Dry clean").child(clothCat.getText().toString()).setValue(Integer.parseInt(qty.getText().toString()));
             } else {
@@ -80,14 +80,13 @@ public class clothCatAdapter extends RecyclerView.Adapter<clothCatAdapter.MyView
         }
 
     }
-    public clothCatAdapter(){}
 
     public clothCatAdapter(ArrayList<orderType> dataSet) {
         this.dataSet = dataSet;
         mReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                orderNo = (Long)dataSnapshot.child("Users").child(mUser.getUid()).child("orders").getValue();
+                orderNo = (long)dataSnapshot.child("Users").child(mUser.getUid()).child("orders").getValue();
             }
 
             @Override

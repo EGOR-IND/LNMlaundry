@@ -27,7 +27,6 @@ public class home extends Fragment {
     private CardView dc;
     private Button proceedBtn;
     private static final int NUM_PAGES = 2;
-    public static int inAppStatus = 0;
     public static int clothCount;
     private ViewPager mPager;
     private PagerAdapter pagerAdapter;
@@ -108,11 +107,10 @@ public class home extends Fragment {
                 clothCount = clothCatAdapter.clothCount+rwClothCatAdapter.clothCount;
                 if (clothCount > 4){
                     mReference.child("Orders").child(mUser.getUid()).child("Order"+(rwClothCatAdapter.orderNo+1)).child("cloth count").setValue(clothCount);
-                    inAppStatus = 1;
                     Intent intent = new Intent(getActivity(), detailsAfterProceed.class);
                     startActivity(intent);
                 }else {
-                    Toast.makeText(getActivity(), "To place an order please choose atleast 4 items.",Toast.LENGTH_SHORT);
+                    Toast.makeText(getActivity().getApplicationContext(), "To place an order please choose atleast 4 items.",Toast.LENGTH_SHORT).show();
                 }
             }
         });

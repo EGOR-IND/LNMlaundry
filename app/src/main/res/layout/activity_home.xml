@@ -89,8 +89,8 @@
             android:textColor="@color/white"
             android:fontFamily="@font/baumans"
             android:textSize="25dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
             android:layout_marginBottom="10dp"
             android:layout_alignParentBottom="true"/>
 </RelativeLayout>

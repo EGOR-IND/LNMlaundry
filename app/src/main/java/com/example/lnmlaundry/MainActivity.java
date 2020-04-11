@@ -26,8 +26,11 @@ import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import static androidx.core.view.GravityCompat.*;
@@ -59,6 +62,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mReference.child("Orders").child(mUser.getUid()).child("Order"+(rwClothCatAdapter.orderNo+1)).removeValue();
 
         home = (TextView)findViewById(R.id.home);
         pending = (TextView)findViewById(R.id.pending);
@@ -238,13 +243,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         }
     }
 
-    @Override
-    public boolean isFinishing() {
-        if (com.example.lnmlaundry.home.inAppStatus == 0){
-            mReference.child("Orders").child(uid).child("Order"+(rwClothCatAdapter.orderNo+1)).setValue(null);
-        }
-        return super.isFinishing();
-    }
 
     @Override
     public void onBackPressed() {
