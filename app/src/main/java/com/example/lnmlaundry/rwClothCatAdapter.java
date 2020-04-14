@@ -21,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class rwClothCatAdapter extends RecyclerView.Adapter<rwClothCatAdapter.MyViewHolder> {
-    public ArrayList<orderType> dataSet;
+    public ArrayList<String> dataSet;
     public static long orderNo;
     public static int clothCount = 0;
 
@@ -82,7 +82,7 @@ public class rwClothCatAdapter extends RecyclerView.Adapter<rwClothCatAdapter.My
 
     }
 
-    public rwClothCatAdapter(ArrayList<orderType> dataSet) {
+    public rwClothCatAdapter(ArrayList<String> dataSet) {
         this.dataSet = dataSet;
         mReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -109,10 +109,8 @@ public class rwClothCatAdapter extends RecyclerView.Adapter<rwClothCatAdapter.My
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
         TextView clothCat = holder.clothCat;
-        final TextView qty = holder.qty;
 
-        clothCat.setText(dataSet.get(position).getItem());
-        qty.setText(String.valueOf(dataSet.get(position).getQty()));
+        clothCat.setText(dataSet.get(position));
     }
 
     @Override

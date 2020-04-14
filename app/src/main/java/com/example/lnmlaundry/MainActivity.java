@@ -26,11 +26,8 @@ import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import static androidx.core.view.GravityCompat.*;
@@ -84,45 +81,49 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             @Override
             public void onPageSelected(int position) {
                 if (position == 0){
-                    home.setTextColor(getResources().getColor(R.color.colorPrimary));
-                    setTextViewDrawableColor(home,R.color.colorPrimary);
+                    home.setTextColor(getResources().getColor(R.color.homeIconEnabled));
+                    home.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.home_en, 0, 0);
                     pending.setTextColor(getResources().getColor(R.color.iconDisabed));
-                    setTextViewDrawableColor(pending,R.color.iconDisabed);
+                    pending.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.pending_dis, 0, 0);
                     past.setTextColor(getResources().getColor(R.color.iconDisabed));
-                    setTextViewDrawableColor(past,R.color.iconDisabed);
+                    past.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.deliver_dis, 0, 0);
                     rates.setTextColor(getResources().getColor(R.color.iconDisabed));
-                    setTextViewDrawableColor(rates,R.color.iconDisabed);
+                    rates.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.rates_dis, 0, 0);
                     hamMenu.setVisibility(View.VISIBLE);
+                    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
                 }else if (position == 1){
                     pending.setTextColor(getResources().getColor(R.color.pendingIconEnabled));
-                    setTextViewDrawableColor(pending,R.color.pendingIconEnabled);
+                    pending.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.pending_en, 0, 0);
                     past.setTextColor(getResources().getColor(R.color.iconDisabed));
-                    setTextViewDrawableColor(past,R.color.iconDisabed);
+                    past.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.deliver_dis, 0, 0);
                     rates.setTextColor(getResources().getColor(R.color.iconDisabed));
-                    setTextViewDrawableColor(rates,R.color.iconDisabed);
+                    rates.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.rates_dis, 0, 0);
                     home.setTextColor(getResources().getColor(R.color.iconDisabed));
-                    setTextViewDrawableColor(home,R.color.iconDisabed);
+                    home.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.home_dis, 0, 0);
                     hamMenu.setVisibility(View.GONE);
+                    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 } else if (position == 2){
                     past.setTextColor(getResources().getColor(R.color.pastIconEnabled));
-                    setTextViewDrawableColor(past,R.color.pastIconEnabled);
+                    past.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.deliver_en, 0, 0);
                     rates.setTextColor(getResources().getColor(R.color.iconDisabed));
-                    setTextViewDrawableColor(rates,R.color.iconDisabed);
+                    rates.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.rates_dis, 0, 0);
                     home.setTextColor(getResources().getColor(R.color.iconDisabed));
-                    setTextViewDrawableColor(home,R.color.iconDisabed);
+                    home.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.home_dis, 0, 0);
                     pending.setTextColor(getResources().getColor(R.color.iconDisabed));
-                    setTextViewDrawableColor(pending,R.color.iconDisabed);
+                    pending.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.pending_dis, 0, 0);
                     hamMenu.setVisibility(View.GONE);
+                    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 } else if (position == 3){
-                    rates.setTextColor(getResources().getColor(R.color.colorPrimary));
-                    setTextViewDrawableColor(rates,R.color.colorPrimary);
+                    rates.setTextColor(getResources().getColor(R.color.ratesIconEnabled));
+                    rates.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.rates_en, 0, 0);
                     past.setTextColor(getResources().getColor(R.color.iconDisabed));
-                    setTextViewDrawableColor(past,R.color.iconDisabed);
+                    past.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.deliver_dis, 0, 0);
                     home.setTextColor(getResources().getColor(R.color.iconDisabed));
-                    setTextViewDrawableColor(home,R.color.iconDisabed);
+                    home.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.home_dis, 0, 0);
                     pending.setTextColor(getResources().getColor(R.color.iconDisabed));
-                    setTextViewDrawableColor(pending,R.color.iconDisabed);
+                    pending.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.pending_dis, 0, 0);
                     hamMenu.setVisibility(View.GONE);
+                    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 }
             }
 
@@ -138,8 +139,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         rates.setOnClickListener(this);
         hamMenu.setOnClickListener(this);
 
-        home.setTextColor(getResources().getColor(R.color.colorPrimary));
-        setTextViewDrawableColor(home,R.color.colorPrimary);
+        home.setTextColor(getResources().getColor(R.color.homeIconEnabled));
+        home.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.home_en, 0, 0);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.homePage);
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout,R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -173,68 +174,64 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         });
     }
 
-    private void setTextViewDrawableColor(TextView textView, int color) {
-        for (Drawable drawable : textView.getCompoundDrawables()) {
-            if (drawable != null) {
-                drawable.setColorFilter(new PorterDuffColorFilter(getResources().getColor(color), PorterDuff.Mode.SRC_IN));
-            }
-        }
-    }
-
     @Override
     public void onClick(View v) {
 
         switch (v.getId()){
             case R.id.home:
-                home.setTextColor(getResources().getColor(R.color.colorPrimary));
-                setTextViewDrawableColor(home,R.color.colorPrimary);
+                home.setTextColor(getResources().getColor(R.color.homeIconEnabled));
+                home.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.home_en, 0, 0);
                 pending.setTextColor(getResources().getColor(R.color.iconDisabed));
-                setTextViewDrawableColor(pending,R.color.iconDisabed);
+                pending.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.pending_dis, 0, 0);
                 past.setTextColor(getResources().getColor(R.color.iconDisabed));
-                setTextViewDrawableColor(past,R.color.iconDisabed);
+                past.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.deliver_dis, 0, 0);
                 rates.setTextColor(getResources().getColor(R.color.iconDisabed));
-                setTextViewDrawableColor(rates,R.color.iconDisabed);
+                rates.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.rates_dis, 0, 0);
                 mPager.setCurrentItem(0);
                 hamMenu.setVisibility(View.VISIBLE);
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
                 break;
 
             case R.id.pending:
                 pending.setTextColor(getResources().getColor(R.color.pendingIconEnabled));
-                setTextViewDrawableColor(pending,R.color.pendingIconEnabled);
+                pending.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.pending_en, 0, 0);
                 past.setTextColor(getResources().getColor(R.color.iconDisabed));
-                setTextViewDrawableColor(past,R.color.iconDisabed);
+                past.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.deliver_dis, 0, 0);
                 rates.setTextColor(getResources().getColor(R.color.iconDisabed));
-                setTextViewDrawableColor(rates,R.color.iconDisabed);
+                rates.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.rates_dis, 0, 0);
                 home.setTextColor(getResources().getColor(R.color.iconDisabed));
-                setTextViewDrawableColor(home,R.color.iconDisabed);
+                home.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.home_dis, 0, 0);
                 mPager.setCurrentItem(1);
                 hamMenu.setVisibility(View.GONE);
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 break;
 
             case R.id.past:
                 past.setTextColor(getResources().getColor(R.color.pastIconEnabled));
-                setTextViewDrawableColor(past,R.color.pastIconEnabled);
+                past.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.deliver_en, 0, 0);
                 rates.setTextColor(getResources().getColor(R.color.iconDisabed));
-                setTextViewDrawableColor(rates,R.color.iconDisabed);
+                rates.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.rates_dis, 0, 0);
                 home.setTextColor(getResources().getColor(R.color.iconDisabed));
-                setTextViewDrawableColor(home,R.color.iconDisabed);
+                home.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.home_dis, 0, 0);
                 pending.setTextColor(getResources().getColor(R.color.iconDisabed));
-                setTextViewDrawableColor(pending,R.color.iconDisabed);
+                pending.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.pending_dis, 0, 0);
                 mPager.setCurrentItem(2);
                 hamMenu.setVisibility(View.GONE);
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 break;
 
             case R.id.rates:
-                rates.setTextColor(getResources().getColor(R.color.colorPrimary));
-                setTextViewDrawableColor(rates,R.color.colorPrimary);
+                rates.setTextColor(getResources().getColor(R.color.ratesIconEnabled));
+                rates.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.rates_en, 0, 0);
                 past.setTextColor(getResources().getColor(R.color.iconDisabed));
-                setTextViewDrawableColor(past,R.color.iconDisabed);
+                past.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.deliver_dis, 0, 0);
                 home.setTextColor(getResources().getColor(R.color.iconDisabed));
-                setTextViewDrawableColor(home,R.color.iconDisabed);
+                home.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.home_dis, 0, 0);
                 pending.setTextColor(getResources().getColor(R.color.iconDisabed));
-                setTextViewDrawableColor(pending,R.color.iconDisabed);
+                pending.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.pending_dis, 0, 0);
                 mPager.setCurrentItem(3);
                 hamMenu.setVisibility(View.GONE);
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 break;
 
             case R.id.menu:

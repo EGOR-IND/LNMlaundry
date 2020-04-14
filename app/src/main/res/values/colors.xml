@@ -7,7 +7,9 @@
     <color name="colorCategoryBar">#00b0ff</color>
     <color name="iconDisabed">#bdbdbd</color>
     <color name="navMenuItemDisabled">#9e9e9e</color>
-    <color name="pendingIconEnabled">#e53935</color>
-    <color name="pastIconEnabled">#4caf50</color>
+    <color name="pendingIconEnabled">#FF9C5A</color>
+    <color name="pastIconEnabled">#7EE64A</color>
     <color name="menuItemColor">#e0e0e0</color>
+    <color name="homeIconEnabled">#E372A3</color>
+    <color name="ratesIconEnabled">#5BE7FA</color>
 </resources>

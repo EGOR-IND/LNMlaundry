@@ -6,9 +6,47 @@
     android:layout_height="match_parent"
     tools:context=".rates">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <RelativeLayout android:id="@+id/ratesTitle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Rates"/>
+        android:background="@drawable/header_bg"
+        android:elevation="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rates"
+            android:textColor="@color/white"
+            android:textSize="25dp"
+            android:fontFamily="@font/baumans"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="10dp"
+            android:paddingBottom="15dp"/>
+    </RelativeLayout>
+
+    <Button android:id="@+id/rwRates"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ratesTitle"
+        android:layout_margin="20dp"
+        android:background="@drawable/rates_btn_bg"
+        android:text="Regular wash rates"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="17dp"
+        android:drawableTop="@drawable/regular"
+        android:padding="10dp"
+        android:drawablePadding="10dp"/>
+
+    <Button android:id="@+id/dcRates"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rwRates"
+        android:layout_margin="20dp"
+        android:background="@drawable/rates_btn_bg"
+        android:text="Dry clean rates"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="17dp"
+        android:drawableTop="@drawable/dry"
+        android:padding="10dp"
+        android:drawablePadding="10dp"/>
 </RelativeLayout>

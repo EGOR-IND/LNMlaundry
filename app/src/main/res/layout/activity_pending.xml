@@ -6,9 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".pending">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <RelativeLayout android:id="@+id/ratesTitle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="pending"/>
+        android:background="@drawable/header_bg"
+        android:elevation="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pending orders"
+            android:textColor="@color/white"
+            android:textSize="25dp"
+            android:fontFamily="@font/baumans"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="10dp"
+            android:paddingBottom="15dp"/>
+    </RelativeLayout>
 </RelativeLayout>

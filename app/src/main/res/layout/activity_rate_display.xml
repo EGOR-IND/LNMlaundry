@@ -4,23 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".past">
+    tools:context=".rateDisplay">
 
-    <RelativeLayout android:id="@+id/ratesTitle"
+    <RelativeLayout android:id="@+id/head"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/header_bg"
-        android:elevation="10dp">
+        android:background="@drawable/header_bg">
 
-        <TextView
+        <TextView android:id="@+id/ratesHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Delivered orders"
+            android:text=""
             android:textColor="@color/white"
             android:textSize="25dp"
             android:fontFamily="@font/baumans"
             android:layout_centerHorizontal="true"
             android:paddingTop="10dp"
             android:paddingBottom="15dp"/>
+        <ImageView android:id="@+id/ratesDisBackbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_keyboard_backspace_black_24dp"
+            android:layout_centerVertical="true"
+            android:paddingLeft="10dp"/>
     </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rateDisRecylerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/head"/>
 </RelativeLayout>

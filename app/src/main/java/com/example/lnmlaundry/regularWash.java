@@ -7,15 +7,25 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 public class regularWash extends Fragment {
+    ArrayList<String> items;
+    RecyclerView.Adapter adapter;
+    RecyclerView recyclerView;
+    ProgressBar progressBar;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,42 +36,36 @@ public class regularWash extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View FragView = inflater.inflate(R.layout.activity_regular_wash, container, false);
 
-        ArrayList<String> items = new ArrayList<String>();
-        items.add("Shirt");
-        items.add("T-Shirt");
-        items.add("Jeans");
-        items.add("Trousers");
-        items.add("Lower");
-        items.add("Shorts");
-        items.add("Towel");
-        items.add("Bed sheets");
-        items.add("Pillow cover");
-        items.add("Top");
-        items.add("Jacket");
-        items.add("Sweater");
-        items.add("Hoodie");
-        items.add("Socks");
-        items.add("Thermals");
-        items.add("Handkerchief");
-        items.add("Face Towel");
-        items.add("Kurta");
-        items.add("Pajama");
+        DatabaseReference mReference = FirebaseDatabase.getInstance().getReference().child("Rates");
+        items = new ArrayList<String>();
+        progressBar = FragView.findViewById(R.id.rwProgressBar);
 
-        ArrayList<orderType> orderTypes = new ArrayList<orderType>();
-        for (int i=0; i<items.size(); i++){
-            orderTypes.add(new orderType(items.get(i), 0));
-        }
 
-        RecyclerView.Adapter adapter = new rwClothCatAdapter(orderTypes);
-
-        RecyclerView recyclerView = (RecyclerView)FragView.findViewById(R.id.rwRecycler);
-        recyclerView.setHasFixedSize(true);
+        recyclerView = (RecyclerView)FragView.findViewById(R.id.rwRecycler);
 
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(),2);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        recyclerView.setAdapter(adapter);
+
+        progressBar.setVisibility(View.VISIBLE);
+        mReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.child("Regular wash").getChildren()){
+                    String item = ds.getKey();
+                    items.add(item);
+                    adapter = new rwClothCatAdapter(items);
+                    recyclerView.setAdapter(adapter);
+                }
+                progressBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         return FragView;
     }

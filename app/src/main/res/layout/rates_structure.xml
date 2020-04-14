@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView android:id="@+id/itenName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Item"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20dp"
+        android:layout_marginLeft="30dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="-"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20dp"
+        android:layout_centerInParent="true"/>
+
+    <TextView android:id="@+id/itemRate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rates"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="30dp"/>
+</RelativeLayout>

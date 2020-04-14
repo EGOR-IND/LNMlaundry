@@ -9,7 +9,8 @@
     <RelativeLayout android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/header_bg">
+        android:background="@drawable/header_bg"
+        android:elevation="10dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -129,7 +130,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/lowersec_bg"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:elevation="10dp">
 
         <Button android:id="@+id/nextBtn"
             android:layout_width="match_parent"
@@ -140,7 +142,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
             android:layout_marginLeft="170dp"
-            android:text="Next"
+            android:text="Place order"
             android:textSize="20dp"
             android:textColor="@color/colorPrimaryDark"
             android:fontFamily="@font/baumans"/>

@@ -12,8 +12,14 @@
         android:roundIcon="@mipmap/lnm_laundry_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".detailsAfterProceed"
+        <activity android:name=".rateDisplay"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".orderDetails"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".detailsAfterProceed"
+            android:screenOrientation="portrait" />
         <activity android:name=".home" />
         <activity android:name=".dryClean" />
         <activity android:name=".regularWash" />
