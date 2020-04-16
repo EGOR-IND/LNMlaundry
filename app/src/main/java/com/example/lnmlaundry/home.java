@@ -107,7 +107,7 @@ public class home extends Fragment {
                 clothCount = clothCatAdapter.clothCount+rwClothCatAdapter.clothCount;
                 if (clothCount > 4){
                     mReference.child("Orders").child(mUser.getUid()).child("Order"+(rwClothCatAdapter.orderNo+1)).child("cloth count").setValue(clothCount);
-                    Intent intent = new Intent(getActivity(), detailsAfterProceed.class);
+                    Intent intent = new Intent(getActivity(), orderSummary.class);
                     startActivity(intent);
                 }else {
                     Toast.makeText(getActivity().getApplicationContext(), "To place an order please choose atleast 4 items.",Toast.LENGTH_SHORT).show();

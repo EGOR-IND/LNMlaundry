@@ -12,27 +12,29 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class RateAdapter extends RecyclerView.Adapter<RateAdapter.MyViewHolder> {
+public class OrderSumAdapter extends RecyclerView.Adapter<OrderSumAdapter.MyViewHolder> {
     public ArrayList<RateModel> dataSet;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView item, rate;
+        TextView item, qty, rate, amount;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.item = itemView.findViewById(R.id.itenName);
-            this.rate = itemView.findViewById(R.id.itemRate);
+            this.item = itemView.findViewById(R.id.item);
+            this.qty = itemView.findViewById(R.id.quantity);
+            this.rate = itemView.findViewById(R.id.rateValue);
+            this.amount = itemView.findViewById(R.id.amount);
         }
     }
 
-    public RateAdapter(ArrayList<RateModel> dataSet) {
+    public OrderSumAdapter(ArrayList<RateModel> dataSet) {
         this.dataSet = dataSet;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rates_structure, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.order_sum_stuct, parent, false);
 
         MyViewHolder myViewHolder = new MyViewHolder(view);
         return myViewHolder;
@@ -42,9 +44,13 @@ public class RateAdapter extends RecyclerView.Adapter<RateAdapter.MyViewHolder> 
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
         TextView item = holder.item;
         TextView rate = holder.rate;
+        TextView qty = holder.qty;
+        TextView amount = holder.amount;
 
         item.setText(dataSet.get(position).getItem());
+        qty.setText(dataSet.get(position).getQty().toString());
         rate.setText(NumberFormat.getCurrencyInstance(new Locale("en","in")).format(dataSet.get(position).getRate()));
+        amount.setText(NumberFormat.getCurrencyInstance(new Locale("en","in")).format(dataSet.get(position).getAmount()));
     }
 
     @Override

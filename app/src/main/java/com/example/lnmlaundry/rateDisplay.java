@@ -3,12 +3,14 @@ package com.example.lnmlaundry;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -24,12 +26,13 @@ public class rateDisplay extends AppCompatActivity {
     ArrayList<RateModel> rateList;
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
-
+    ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rate_display);
 
+        progressBar = findViewById(R.id.ratesProgressBar);
         TextView ratesHeader = (TextView)findViewById(R.id.ratesHeader);
         ratesHeader.setText(rates.rateId);
 
@@ -41,9 +44,13 @@ public class rateDisplay extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        recyclerView.addItemDecoration(new
+                DividerItemDecoration(recyclerView.getContext(),
+                DividerItemDecoration.VERTICAL));
 
         rateList = new ArrayList<RateModel>();
 
+        progressBar.setVisibility(View.VISIBLE);
         if (rates.rateId == "Regular wash rates"){
             mReference.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -54,6 +61,7 @@ public class rateDisplay extends AppCompatActivity {
                         rateList.add(new RateModel(item, rate));
                         adapter = new RateAdapter(rateList);
                         recyclerView.setAdapter(adapter);
+                        progressBar.setVisibility(View.GONE);
                     }
                 }
 
@@ -72,6 +80,7 @@ public class rateDisplay extends AppCompatActivity {
                         rateList.add(new RateModel(item, rate));
                         adapter = new RateAdapter(rateList);
                         recyclerView.setAdapter(adapter);
+                        progressBar.setVisibility(View.GONE);
                     }
                 }
 

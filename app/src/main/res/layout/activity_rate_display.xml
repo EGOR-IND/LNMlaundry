@@ -9,7 +9,8 @@
     <RelativeLayout android:id="@+id/head"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/header_bg">
+        android:background="@drawable/header_bg"
+        android:elevation="10dp">
 
         <TextView android:id="@+id/ratesHeader"
             android:layout_width="wrap_content"
@@ -29,9 +30,70 @@
             android:paddingLeft="10dp"/>
     </RelativeLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rateDisRecylerView"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/infoHead"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/head"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@id/head"
+        app:cardElevation="2dp"
+        app:cardCornerRadius="10dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Item"
+                android:textSize="20dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_marginLeft="40dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rate"
+                android:textSize="20dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_marginRight="40dp"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/rateList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/infoHead"
+        app:cardElevation="2dp"
+        app:cardCornerRadius="10dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="10dp">
+
+        <ProgressBar
+            android:id="@+id/ratesProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:max="100"
+            android:minHeight="50dp"
+            android:minWidth="50dp"
+            android:progress="1"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rateDisRecylerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/infoHead"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:scrollbars="none"/>
+    </androidx.cardview.widget.CardView>
 </RelativeLayout>

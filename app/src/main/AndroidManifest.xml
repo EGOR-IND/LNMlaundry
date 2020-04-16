@@ -12,10 +12,10 @@
         android:roundIcon="@mipmap/lnm_laundry_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".rateDisplay"
+        <activity android:name=".orderSummary"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".orderDetails"
+            android:name=".rateDisplay"
             android:screenOrientation="portrait" />
         <activity
             android:name=".detailsAfterProceed"
