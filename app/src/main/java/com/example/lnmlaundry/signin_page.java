@@ -32,8 +32,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class signin_page extends AppCompatActivity {
 
@@ -127,10 +130,22 @@ public class signin_page extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     Log.d(TAG, "signInWithCredentials : success");
-                    FirebaseUser user = mAuth.getCurrentUser();
-                    mDatabaseReference.child("Users").child(user.getUid()).child("email").setValue(user.getEmail());
-                    mDatabaseReference.child("Users").child(user.getUid()).child("name").setValue(user.getDisplayName());
-                    mDatabaseReference.child("Users").child(user.getUid()).child("orders").setValue(0);
+                    final FirebaseUser user = mAuth.getCurrentUser();
+                    mDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (!dataSnapshot.child("Users").hasChild(user.getUid()))  {
+                                mDatabaseReference.child("Users").child(user.getUid()).child("email").setValue(user.getEmail());
+                                mDatabaseReference.child("Users").child(user.getUid()).child("name").setValue(user.getDisplayName());
+                                mDatabaseReference.child("Users").child(user.getUid()).child("orders").setValue(0);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
 
                     finish();
                     startActivity(new Intent(signin_page.this, MainActivity.class));
