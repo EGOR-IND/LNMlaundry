@@ -12,8 +12,12 @@
         android:roundIcon="@mipmap/lnm_laundry_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".orderSummary"
-            android:screenOrientation="portrait"></activity>
+        <activity android:name=".OrderPlacedScreen"
+            android:screenOrientation="portrait"
+            android:theme="@style/DialogWithRoundCorners"></activity>
+        <activity
+            android:name=".orderSummary"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".rateDisplay"
             android:screenOrientation="portrait" />

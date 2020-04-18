@@ -138,6 +138,15 @@ public class signin_page extends AppCompatActivity {
                                 mDatabaseReference.child("Users").child(user.getUid()).child("email").setValue(user.getEmail());
                                 mDatabaseReference.child("Users").child(user.getUid()).child("name").setValue(user.getDisplayName());
                                 mDatabaseReference.child("Users").child(user.getUid()).child("orders").setValue(0);
+                                finish();
+                                mProgress.dismiss();
+                                startActivity(new Intent(signin_page.this, MainActivity.class));
+                                Toast.makeText(signin_page.this, "User Signed In", Toast.LENGTH_SHORT).show();
+                            }else {
+                                finish();
+                                mProgress.dismiss();
+                                startActivity(new Intent(signin_page.this, MainActivity.class));
+                                Toast.makeText(signin_page.this, "User Signed In", Toast.LENGTH_SHORT).show();
                             }
                         }
 
@@ -147,9 +156,6 @@ public class signin_page extends AppCompatActivity {
                         }
                     });
 
-                    finish();
-                    startActivity(new Intent(signin_page.this, MainActivity.class));
-                    Toast.makeText(signin_page.this, "User Signed In", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     Log.d(TAG, "signInWithCredentials : failure",task.getException());

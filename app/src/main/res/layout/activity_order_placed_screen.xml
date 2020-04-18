@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context=".OrderPlacedScreen"
+    android:backgroundTint="@color/white">
+
+    <ImageView android:id="@+id/opsIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/oder_success"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="20dp"/>
+
+    <TextView android:id="@+id/opsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Order placed successfully"
+        android:textSize="25dp"
+        android:textColor="#4dd0e1"
+        android:fontFamily="sans-serif-condensed"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/opsIcon"/>
+
+    <TextView android:id="@+id/opsInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your order is placed successfully. You will get a\nnotification when the order is ready. You can\nalso see the order status in pending orders\nlist."
+        android:textSize="15dp"
+        android:textColor="#bdbdbd"
+        android:fontFamily="sans-serif-condensed"
+        android:layout_below="@id/opsTitle"
+        android:gravity="center"/>
+
+    <Button android:id="@+id/continueBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/opsInfo"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/signin_bg"
+        android:backgroundTint="#00bcd4"
+        android:textColor="@color/white"
+        android:text="continue"
+        android:textSize="18dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_margin="10dp"
+        android:fontFamily="sans-serif-condensed"/>
+</RelativeLayout>

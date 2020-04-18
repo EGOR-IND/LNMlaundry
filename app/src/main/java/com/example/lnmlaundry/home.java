@@ -19,8 +19,11 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class home extends Fragment {
     private CardView rw;
@@ -106,7 +109,18 @@ public class home extends Fragment {
                 final DatabaseReference mReference = FirebaseDatabase.getInstance().getReference();
                 clothCount = clothCatAdapter.clothCount+rwClothCatAdapter.clothCount;
                 if (clothCount > 4){
-                    mReference.child("Orders").child(mUser.getUid()).child("Order"+(rwClothCatAdapter.orderNo+1)).child("cloth count").setValue(clothCount);
+                    mReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            long orderNo = dataSnapshot.child("Users").child(mUser.getUid()).child("orders").getValue(Long.class);
+                            mReference.child("Orders").child(mUser.getUid()).child("Order"+(orderNo+1)).child("cloth count").setValue(clothCount);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
                     Intent intent = new Intent(getActivity(), orderSummary.class);
                     startActivity(intent);
                 }else {

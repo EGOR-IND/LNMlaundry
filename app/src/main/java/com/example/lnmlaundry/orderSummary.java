@@ -61,10 +61,11 @@ public class orderSummary extends AppCompatActivity {
             List<Section> sections = new ArrayList<Section>();
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child("Orders").child(user.getUid()).child("Order"+(rwClothCatAdapter.orderNo+1)).hasChild("Regular wash")){
+                long orderNo = dataSnapshot.child("Users").child(user.getUid()).child("orders").getValue(Long.class);
+                if (dataSnapshot.child("Orders").child(user.getUid()).child("Order"+(orderNo+1)).hasChild("Regular wash")){
                     amount = new ArrayList<Long>();
                     orderSumList = new ArrayList<RateModel>();
-                    for (DataSnapshot ds : dataSnapshot.child("Orders").child(user.getUid()).child("Order"+(rwClothCatAdapter.orderNo+1)).child("Regular wash").getChildren()){
+                    for (DataSnapshot ds : dataSnapshot.child("Orders").child(user.getUid()).child("Order"+(orderNo+1)).child("Regular wash").getChildren()){
                         String item = ds.getKey();
                         Long qty = ds.getValue(Long.class);
                         Long rate = dataSnapshot.child("Rates").child("Regular wash").child(item).getValue(Long.class);
@@ -76,10 +77,10 @@ public class orderSummary extends AppCompatActivity {
                     recyclerView.setAdapter(adapter);
                     setTotal();
                 }
-                if (dataSnapshot.child("Orders").child(user.getUid()).child("Order"+(rwClothCatAdapter.orderNo+1)).hasChild("Dry clean")){
+                if (dataSnapshot.child("Orders").child(user.getUid()).child("Order"+(orderNo+1)).hasChild("Dry clean")){
                     amount = new ArrayList<Long>();
                     orderSumList = new ArrayList<RateModel>();
-                    for (DataSnapshot ds : dataSnapshot.child("Orders").child(user.getUid()).child("Order"+(rwClothCatAdapter.orderNo+1)).child("Dry clean").getChildren()){
+                    for (DataSnapshot ds : dataSnapshot.child("Orders").child(user.getUid()).child("Order"+(orderNo+1)).child("Dry clean").getChildren()){
                         String item = ds.getKey();
                         Long qty = ds.getValue(Long.class);
                         Long rate = dataSnapshot.child("Rates").child("Dry clean").child(item).getValue(Long.class);
@@ -93,7 +94,7 @@ public class orderSummary extends AppCompatActivity {
                 }
                 TextView totalDisplay = (TextView)findViewById(R.id.total);
                 totalDisplay.append("  "+NumberFormat.getCurrencyInstance(new Locale("en","in")).format(total));
-                mReference.child("Orders").child(user.getUid()).child("Order"+(rwClothCatAdapter.orderNo+1)).child("Total").setValue(total);
+                mReference.child("Orders").child(user.getUid()).child("Order"+(orderNo+1)).child("Total").setValue(total);
             }
 
             public void setTotal(){

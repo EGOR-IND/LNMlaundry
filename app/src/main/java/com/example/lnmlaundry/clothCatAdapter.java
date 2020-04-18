@@ -21,7 +21,6 @@ import java.util.ArrayList;
 
 public class clothCatAdapter extends RecyclerView.Adapter<clothCatAdapter.MyViewHolder> {
     public ArrayList<String> dataSet;
-    public static long orderNo;
     public static int clothCount = 0;
 
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -73,27 +72,39 @@ public class clothCatAdapter extends RecyclerView.Adapter<clothCatAdapter.MyView
 
         public void uploadOrder(){
             if (Integer.parseInt(qty.getText().toString()) != 0){
-                mReference.child("Orders").child(mUser.getUid()).child("Order"+(orderNo+1)).child("Dry clean").child(clothCat.getText().toString()).setValue(Integer.parseInt(qty.getText().toString()));
+                mReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        long orderNo = dataSnapshot.child("Users").child(mUser.getUid()).child("orders").getValue(Long.class);
+                        mReference.child("Orders").child(mUser.getUid()).child("Order"+(orderNo+1)).child("Regular wash").child(clothCat.getText().toString()).setValue(Integer.parseInt(qty.getText().toString()));
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             } else {
-                mReference.child("Orders").child(mUser.getUid()).child("Order"+(orderNo+1)).child("Dry clean").child(clothCat.getText().toString()).setValue(null);
+                mReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        long orderNo = dataSnapshot.child("Users").child(mUser.getUid()).child("orders").getValue(Long.class);
+                        mReference.child("Orders").child(mUser.getUid()).child("Order"+(orderNo+1)).child("Regular wash").child(clothCat.getText().toString()).setValue(null);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             }
+
         }
 
     }
 
     public clothCatAdapter(ArrayList<String> dataSet) {
         this.dataSet = dataSet;
-        mReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                orderNo = (long)dataSnapshot.child("Users").child(mUser.getUid()).child("orders").getValue();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
     }
 
     @NonNull

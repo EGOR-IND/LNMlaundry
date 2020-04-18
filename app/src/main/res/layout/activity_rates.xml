@@ -33,7 +33,6 @@
         android:text="Regular wash rates"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="17dp"
-        android:drawableTop="@drawable/regular"
         android:padding="10dp"
         android:drawablePadding="10dp"/>
 
@@ -46,7 +45,6 @@
         android:text="Dry clean rates"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="17dp"
-        android:drawableTop="@drawable/dry"
         android:padding="10dp"
         android:drawablePadding="10dp"/>
 </RelativeLayout>

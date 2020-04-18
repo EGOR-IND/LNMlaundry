@@ -113,6 +113,20 @@ public class detailsAfterProceed extends AppCompatActivity {
                     mReference.child("Users").child(mUser.getUid()).child("phoneNo").setValue(phoneNo.getText().toString());
                     mReference.child("Users").child(mUser.getUid()).child("hostel").setValue(hostelNo);
                     mReference.child("Users").child(mUser.getUid()).child("roomNo").setValue(roomNo.getText().toString());
+                    mReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            long orderNo = dataSnapshot.child("Users").child(mUser.getUid()).child("orders").getValue(Long.class);
+                            mReference.child("Users").child(mUser.getUid()).child("orders").setValue(orderNo+1);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                    Intent intent = new Intent(detailsAfterProceed.this, OrderPlacedScreen.class);
+                    startActivity(intent);
                 }
             }
         });

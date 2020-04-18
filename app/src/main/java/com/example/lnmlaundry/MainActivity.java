@@ -12,9 +12,6 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
@@ -26,8 +23,11 @@ import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import static androidx.core.view.GravityCompat.*;
@@ -37,7 +37,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     final FirebaseAuth mAuth = FirebaseAuth.getInstance();
     final FirebaseUser mUser = mAuth.getCurrentUser();
     final DatabaseReference mReference = FirebaseDatabase.getInstance().getReference();
-    final String uid = mUser.getUid();
 
     private TextView home;
     private TextView pending;
@@ -60,7 +59,20 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mReference.child("Orders").child(mUser.getUid()).child("Order"+(rwClothCatAdapter.orderNo+1)).removeValue();
+        mReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                long orderNo = dataSnapshot.child("Users").child(mUser.getUid()).child("orders").getValue(Long.class);
+                if (dataSnapshot.child("Orders").child(mUser.getUid()).hasChild("Order"+(orderNo+1))){
+                    mReference.child("Orders").child(mUser.getUid()).child("Order"+(orderNo+1)).removeValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         home = (TextView)findViewById(R.id.home);
         pending = (TextView)findViewById(R.id.pending);
@@ -239,7 +251,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 break;
         }
     }
-
 
     @Override
     public void onBackPressed() {

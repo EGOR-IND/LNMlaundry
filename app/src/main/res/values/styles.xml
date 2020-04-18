@@ -18,4 +18,8 @@
         <item name="android:textColorPrimary">@color/navMenuItemDisabled</item>
         <item name="android:textColor">@color/navMenuItemDisabled</item>
     </style>
+
+    <style name="DialogWithRoundCorners" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@drawable/dialog_bg</item>
+    </style>
 </resources>
