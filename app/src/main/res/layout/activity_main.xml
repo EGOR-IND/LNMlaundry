@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/homePage"
     tools:context=".MainActivity"
-    tools:openDrawer="end">
+    tools:openDrawer="start">
 
     <RelativeLayout
         android:layout_width="match_parent"
