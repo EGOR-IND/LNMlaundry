@@ -76,7 +76,7 @@ public class clothCatAdapter extends RecyclerView.Adapter<clothCatAdapter.MyView
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         long orderNo = dataSnapshot.child("Users").child(mUser.getUid()).child("orders").getValue(Long.class);
-                        mReference.child("Orders").child(mUser.getUid()).child("Order"+(orderNo+1)).child("Regular wash").child(clothCat.getText().toString()).setValue(Integer.parseInt(qty.getText().toString()));
+                        mReference.child("Orders").child(mUser.getUid()).child("Order"+(orderNo+1)).child("Dry clean").child(clothCat.getText().toString()).setValue(Integer.parseInt(qty.getText().toString()));
                     }
 
                     @Override

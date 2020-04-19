@@ -24,6 +24,19 @@
         android:layout_marginTop="40dp"
         android:layout_marginBottom="15dp"/>
 
+    <ProgressBar
+        android:id="@+id/osProgressBar2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:indeterminate="true"
+        android:max="100"
+        android:minHeight="50dp"
+        android:minWidth="50dp"
+        android:progress="1"
+        android:layout_marginTop="40dp"
+        android:indeterminateTint="@color/white"/>
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -81,6 +94,17 @@
                 android:layout_below="@id/osDetailHead"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"/>
+
+            <ProgressBar
+                android:id="@+id/osProgressBar1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:indeterminate="true"
+                android:max="100"
+                android:minHeight="50dp"
+                android:minWidth="50dp"
+                android:progress="1" />
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>

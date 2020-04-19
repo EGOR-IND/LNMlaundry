@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
@@ -12,9 +13,13 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,6 +28,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.Random;
 
 public class detailsAfterProceed extends AppCompatActivity {
     FirebaseAuth mAuth;
@@ -34,6 +41,9 @@ public class detailsAfterProceed extends AppCompatActivity {
     EditText phoneNo;
     EditText roomNo;
     Spinner hostelSpinner;
+    ProgressBar pb1;
+    RelativeLayout userDetails;
+    Button placeOrder;
 
     boolean next = true;
     String hostelNo;
@@ -41,6 +51,15 @@ public class detailsAfterProceed extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details_after_proceed);
+
+        userDetails = findViewById(R.id.userDetails);
+        placeOrder = findViewById(R.id.nextBtn);
+
+        userDetails.setVisibility(View.INVISIBLE);
+        placeOrder.setVisibility(View.INVISIBLE);
+
+        pb1 = findViewById(R.id.dapProgressBar);
+        pb1.setVisibility(View.VISIBLE);
 
         name = (TextView)findViewById(R.id.userName);
         email = (TextView)findViewById(R.id.emailId);
@@ -73,11 +92,13 @@ public class detailsAfterProceed extends AppCompatActivity {
                 if (dataSnapshot.child("Users").child(mUser.getUid()).hasChild("hostel")){
                     hostelSpinner.setSelection(adapter.getPosition(dataSnapshot.child("Users").child(mUser.getUid()).child("hostel").getValue().toString()) );
                 }
+                pb1.setVisibility(View.GONE);
+                userDetails.setVisibility(View.VISIBLE);
+                placeOrder.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
 
@@ -92,7 +113,7 @@ public class detailsAfterProceed extends AppCompatActivity {
 
             }
         });
-        findViewById(R.id.nextBtn).setOnClickListener(new View.OnClickListener() {
+        placeOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int wing = 0;
@@ -118,15 +139,16 @@ public class detailsAfterProceed extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             long orderNo = dataSnapshot.child("Users").child(mUser.getUid()).child("orders").getValue(Long.class);
                             mReference.child("Users").child(mUser.getUid()).child("orders").setValue(orderNo+1);
+                            mReference.child("Orders").child(mUser.getUid()).child("Order"+(orderNo+1)).child("Status").setValue("Placed");
+                            mReference.child("Orders").child(mUser.getUid()).child("Order"+(orderNo+1)).child("PickUpOTP").setValue(generateOTP());
+                            Intent intent = new Intent(detailsAfterProceed.this, OrderPlacedScreen.class);
+                            startActivity(intent);
                         }
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
-
                         }
                     });
-                    Intent intent = new Intent(detailsAfterProceed.this, OrderPlacedScreen.class);
-                    startActivity(intent);
                 }
             }
         });
@@ -137,5 +159,24 @@ public class detailsAfterProceed extends AppCompatActivity {
                 onBackPressed();
             }
         });
+    }
+
+    public void sendSMS(String phoneNo, String msg) {
+        try {
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage(phoneNo, null, msg, null, null);
+            Toast.makeText(getApplicationContext(), "Message Sent",
+                    Toast.LENGTH_LONG).show();
+        } catch (Exception ex) {
+            Toast.makeText(getApplicationContext(),ex.getMessage().toString(),
+                    Toast.LENGTH_LONG).show();
+            ex.printStackTrace();
+        }
+    }
+
+    private int generateOTP(){
+        Random random = new Random();
+        int otp = 100000 + random.nextInt(600000);
+        return otp;
     }
 }

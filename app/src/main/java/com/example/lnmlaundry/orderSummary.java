@@ -10,7 +10,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,10 +36,25 @@ public class orderSummary extends AppCompatActivity {
     ArrayList<RateModel> orderSumList;
     FirebaseUser user;
     DatabaseReference mReference;
+    ProgressBar pb1,pb2;
+    TextView totalAmount;
+    Button nextBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_summary);
+
+        pb1 = findViewById(R.id.osProgressBar1);
+        pb2 = findViewById(R.id.osProgressBar2);
+
+        pb1.setVisibility(View.VISIBLE);
+        pb2.setVisibility(View.VISIBLE);
+
+        totalAmount = findViewById(R.id.total);
+        nextBtn = findViewById(R.id.osNextBtn);
+
+        totalAmount.setVisibility(View.INVISIBLE);
+        nextBtn.setVisibility(View.INVISIBLE);
 
         findViewById(R.id.osBackBtn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,9 +110,20 @@ public class orderSummary extends AppCompatActivity {
                     recyclerView.setAdapter(adapter);
                     setTotal();
                 }
+                pb1.setVisibility(View.GONE);
                 TextView totalDisplay = (TextView)findViewById(R.id.total);
                 totalDisplay.append("  "+NumberFormat.getCurrencyInstance(new Locale("en","in")).format(total));
                 mReference.child("Orders").child(user.getUid()).child("Order"+(orderNo+1)).child("Total").setValue(total);
+                pb2.setVisibility(View.GONE);
+                totalAmount.setVisibility(View.VISIBLE);
+                nextBtn.setVisibility(View.VISIBLE);
+                nextBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(orderSummary.this, detailsAfterProceed.class);
+                        startActivity(intent);
+                    }
+                });
             }
 
             public void setTotal(){
@@ -105,14 +134,6 @@ public class orderSummary extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-        findViewById(R.id.osNextBtn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(orderSummary.this, detailsAfterProceed.class);
-                startActivity(intent);
             }
         });
     }
