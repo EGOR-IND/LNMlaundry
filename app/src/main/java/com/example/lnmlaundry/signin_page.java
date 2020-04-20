@@ -134,10 +134,15 @@ public class signin_page extends AppCompatActivity {
                     mDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            Long orderId = dataSnapshot.child("orderIdCount").getValue(Long.class);
+                            if(orderId >= 6000L)
+                                orderId = 1000L;
                             if (!dataSnapshot.child("Users").hasChild(user.getUid()))  {
                                 mDatabaseReference.child("Users").child(user.getUid()).child("email").setValue(user.getEmail());
                                 mDatabaseReference.child("Users").child(user.getUid()).child("name").setValue(user.getDisplayName());
                                 mDatabaseReference.child("Users").child(user.getUid()).child("orders").setValue(0);
+                                mDatabaseReference.child("Users").child(user.getUid()).child("orderId").setValue(orderId+1);
+                                mDatabaseReference.child("orderIdCount").setValue(orderId+1);
                                 finish();
                                 mProgress.dismiss();
                                 startActivity(new Intent(signin_page.this, MainActivity.class));

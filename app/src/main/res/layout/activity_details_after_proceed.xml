@@ -84,6 +84,20 @@
             <TextView
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
+                android:text="Order ID :"
+                android:textSize="18dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:padding="10dp"/>
+            <TextView android:id="@+id/orderId"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textSize="18dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:padding="10dp"/>
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
                 android:text="phone no :"
                 android:textSize="18dp"
                 android:textColor="@color/colorPrimaryDark"

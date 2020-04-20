@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp">
+
+    <TextView android:id="@+id/orderNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Order no. - "
+        android:textSize="18dp"
+        android:textColor="#616161"/>
+
+    <TextView android:id="@+id/totalAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total amount - "
+        android:layout_below="@id/orderNo"
+        android:textSize="15dp"
+        android:textColor="#9e9e9e"/>
+
+    <TextView android:id="@+id/totalClothes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total clothes - "
+        android:layout_below="@id/totalAmount"
+        android:textSize="15dp"
+        android:textColor="#9e9e9e"/>
+
+    <TextView android:id="@+id/pickUpOtp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/status"
+        android:text="Pick up otp - "
+        android:background="@color/colorPrimaryDark"
+        android:textSize="14dp"
+        android:textColor="@color/white"
+        android:padding="2dp"/>
+
+    <TextView android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="Status - "
+        android:textSize="15dp"
+        android:textColor="@color/white"
+        android:background="#ff7043"
+        android:padding="2dp"/>
+</RelativeLayout>

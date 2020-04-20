@@ -34,4 +34,10 @@
         android:layout_height="wrap_content"
         android:paddingLeft="8dp"
         android:text="User@lnmlaundry,com"/>
+
+    <TextView android:id="@+id/orderIdDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:text="order ID: "/>
 </LinearLayout>

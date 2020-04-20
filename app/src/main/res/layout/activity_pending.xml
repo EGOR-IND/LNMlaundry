@@ -23,4 +23,12 @@
             android:paddingTop="10dp"
             android:paddingBottom="15dp"/>
     </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/pendingRV"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/ratesTitle"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
 </RelativeLayout>

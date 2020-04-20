@@ -59,9 +59,20 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        navigationView = (NavigationView)findViewById(R.id.nav_view);
+
+        View headerView = navigationView.getHeaderView(0);
+        final TextView mName = (TextView) headerView.findViewById(R.id.name);
+        final TextView mEmail = (TextView) headerView.findViewById(R.id.email);
+        final TextView mOrderId = (TextView) headerView.findViewById(R.id.orderIdDisplay);
+        ImageView mProfilePic = (ImageView) headerView.findViewById(R.id.profilePic);
+
         mReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mName.setText(dataSnapshot.child("Users").child(mUser.getUid()).child("name").getValue().toString());
+                mEmail.setText(dataSnapshot.child("Users").child(mUser.getUid()).child("email").getValue().toString());
+                mOrderId.append(dataSnapshot.child("Users").child(mUser.getUid()).child("orderId").getValue().toString());
                 long orderNo = dataSnapshot.child("Users").child(mUser.getUid()).child("orders").getValue(Long.class);
                 if (dataSnapshot.child("Orders").child(mUser.getUid()).hasChild("Order"+(orderNo+1))){
                     mReference.child("Orders").child(mUser.getUid()).child("Order"+(orderNo+1)).removeValue();
@@ -71,6 +82,21 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+        Picasso.with(this).load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()).placeholder(R.drawable.ic_account_circle_black_24dp).fit().into(mProfilePic);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                int id = menuItem.getItemId();
+                switch (id) {
+                    case R.id.sign_out:
+                        signOut();
+                        break;
+                    default:
+                        return true;
+                }
+                return true;
             }
         });
 
@@ -158,32 +184,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout,R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
-
-        navigationView = (NavigationView)findViewById(R.id.nav_view);
-
-        View headerView = navigationView.getHeaderView(0);
-        TextView mName = (TextView) headerView.findViewById(R.id.name);
-        TextView mEmail = (TextView) headerView.findViewById(R.id.email);
-        ImageView mProfilePic = (ImageView) headerView.findViewById(R.id.profilePic);
-
-        mName.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
-        mEmail.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
-
-        Picasso.with(this).load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()).placeholder(R.drawable.ic_account_circle_black_24dp).fit().into(mProfilePic);
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                int id = menuItem.getItemId();
-                switch (id) {
-                    case R.id.sign_out:
-                        signOut();
-                        break;
-                    default:
-                        return true;
-                    }
-                    return true;
-                }
-        });
     }
 
     @Override

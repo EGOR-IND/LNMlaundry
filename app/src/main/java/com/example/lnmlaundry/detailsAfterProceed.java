@@ -36,10 +36,8 @@ public class detailsAfterProceed extends AppCompatActivity {
     FirebaseUser mUser;
     DatabaseReference mReference;
 
-    TextView name;
-    TextView email;
-    EditText phoneNo;
-    EditText roomNo;
+    TextView name, email, orderId;
+    EditText phoneNo, roomNo;
     Spinner hostelSpinner;
     ProgressBar pb1;
     RelativeLayout userDetails;
@@ -63,6 +61,7 @@ public class detailsAfterProceed extends AppCompatActivity {
 
         name = (TextView)findViewById(R.id.userName);
         email = (TextView)findViewById(R.id.emailId);
+        orderId = (TextView)findViewById(R.id.orderId);
         phoneNo = (EditText)findViewById(R.id.phoneNo);
         roomNo = (EditText)findViewById(R.id.room);
         hostelSpinner = (Spinner)findViewById(R.id.hostelList);
@@ -83,6 +82,7 @@ public class detailsAfterProceed extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 name.setText(dataSnapshot.child("Users").child(mUser.getUid()).child("name").getValue().toString());
                 email.setText(dataSnapshot.child("Users").child(mUser.getUid()).child("email").getValue().toString());
+                orderId.setText(dataSnapshot.child("Users").child(mUser.getUid()).child("orderId").getValue().toString());
                 if (dataSnapshot.child("Users").child(mUser.getUid()).hasChild("phoneNo")){
                     phoneNo.setText(dataSnapshot.child("Users").child(mUser.getUid()).child("phoneNo").getValue().toString());
                 }
@@ -139,7 +139,7 @@ public class detailsAfterProceed extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             long orderNo = dataSnapshot.child("Users").child(mUser.getUid()).child("orders").getValue(Long.class);
                             mReference.child("Users").child(mUser.getUid()).child("orders").setValue(orderNo+1);
-                            mReference.child("Orders").child(mUser.getUid()).child("Order"+(orderNo+1)).child("Status").setValue("Placed");
+                            mReference.child("Orders").child(mUser.getUid()).child("Order"+(orderNo+1)).child("Status").setValue(1);
                             mReference.child("Orders").child(mUser.getUid()).child("Order"+(orderNo+1)).child("PickUpOTP").setValue(generateOTP());
                             Intent intent = new Intent(detailsAfterProceed.this, OrderPlacedScreen.class);
                             startActivity(intent);

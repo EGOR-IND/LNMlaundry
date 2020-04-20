@@ -33,16 +33,4 @@ public class RateModel {
     public Long getAmount() {
         return amount;
     }
-
-    public void setRate(Long rate) {
-        this.rate = rate;
-    }
-
-    public void setQty(Long qty) {
-        this.qty = qty;
-    }
-
-    public void setAmount(Long amount) {
-        this.amount = amount;
-    }
 }

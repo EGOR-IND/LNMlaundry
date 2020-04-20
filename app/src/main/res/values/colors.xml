@@ -12,4 +12,5 @@
     <color name="menuItemColor">#e0e0e0</color>
     <color name="homeIconEnabled">#E372A3</color>
     <color name="ratesIconEnabled">#5BE7FA</color>
+    <color name="PlacedStatus">#ff7043</color>
 </resources>
