@@ -13,4 +13,5 @@
     <color name="homeIconEnabled">#E372A3</color>
     <color name="ratesIconEnabled">#5BE7FA</color>
     <color name="PlacedStatus">#ff7043</color>
+    <color name="DeliveredStatus">#7cb342</color>
 </resources>

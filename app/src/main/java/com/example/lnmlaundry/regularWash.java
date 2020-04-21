@@ -37,7 +37,6 @@ public class regularWash extends Fragment {
         View FragView = inflater.inflate(R.layout.activity_regular_wash, container, false);
 
         DatabaseReference mReference = FirebaseDatabase.getInstance().getReference().child("Rates");
-        items = new ArrayList<String>();
         progressBar = FragView.findViewById(R.id.rwProgressBar);
 
 
@@ -52,6 +51,7 @@ public class regularWash extends Fragment {
         mReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                items = new ArrayList<String>();
                 for (DataSnapshot ds : dataSnapshot.child("Regular wash").getChildren()){
                     String item = ds.getKey();
                     items.add(item);

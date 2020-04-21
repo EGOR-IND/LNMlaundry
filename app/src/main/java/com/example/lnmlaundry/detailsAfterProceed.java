@@ -29,6 +29,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Date;
 import java.util.Random;
 
 public class detailsAfterProceed extends AppCompatActivity {
@@ -138,9 +139,11 @@ public class detailsAfterProceed extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             long orderNo = dataSnapshot.child("Users").child(mUser.getUid()).child("orders").getValue(Long.class);
+                            String currentDateTimeString = java.text.DateFormat.getDateTimeInstance().format(new Date());
                             mReference.child("Users").child(mUser.getUid()).child("orders").setValue(orderNo+1);
                             mReference.child("Orders").child(mUser.getUid()).child("Order"+(orderNo+1)).child("Status").setValue(1);
                             mReference.child("Orders").child(mUser.getUid()).child("Order"+(orderNo+1)).child("PickUpOTP").setValue(generateOTP());
+                            mReference.child("Orders").child(mUser.getUid()).child("Order"+(orderNo+1)).child("orderPlaceTime").setValue(currentDateTimeString);
                             Intent intent = new Intent(detailsAfterProceed.this, OrderPlacedScreen.class);
                             startActivity(intent);
                         }

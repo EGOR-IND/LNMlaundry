@@ -35,20 +35,27 @@ public class PendingOrderAdapter extends RecyclerView.Adapter<PendingOrderAdapte
         TextView totalAmount = holder.totalAmount;
         TextView totalClothes = holder.totalClothes;
         TextView pickUpOtp = holder.pickUpOtp;
+        TextView time  = holder.time;
 
         String statusValue = orderData.get(position).getStatus();
         if (statusValue == "Placed"){
             status.setBackgroundResource(R.color.PlacedStatus);
+            pickUpOtp.append(orderData.get(position).getPickUpOtp().toString());
         }else if (statusValue == "Picked Up"){
             status.setBackgroundResource(R.color.pendingIconEnabled);
+            pickUpOtp.setVisibility(View.GONE);
         }else if (statusValue == "Ready"){
             status.setBackgroundResource(R.color.pastIconEnabled);
+            pickUpOtp.setVisibility(View.GONE);
+        }else if (statusValue == "Delivered"){
+            status.setBackgroundResource(R.color.DeliveredStatus);
+            pickUpOtp.setVisibility(View.GONE);
         }
         orderNo.append(orderData.get(position).getOrderNo());
         status.append(statusValue);
         totalAmount.append(NumberFormat.getCurrencyInstance(new Locale("en","in")).format(orderData.get(position).getTotalAmount()));
         totalClothes.append(orderData.get(position).getTotalClothes().toString());
-        pickUpOtp.append(orderData.get(position).getPickUpOtp().toString());
+        time.append(orderData.get(position).getTime());
     }
 
     @Override
@@ -57,7 +64,7 @@ public class PendingOrderAdapter extends RecyclerView.Adapter<PendingOrderAdapte
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView orderNo, status, totalAmount, totalClothes, pickUpOtp;
+        TextView orderNo, status, totalAmount, totalClothes, pickUpOtp, time;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -66,6 +73,7 @@ public class PendingOrderAdapter extends RecyclerView.Adapter<PendingOrderAdapte
             this.totalAmount = itemView.findViewById(R.id.totalAmount);
             this.totalClothes = itemView.findViewById(R.id.totalClothes);
             this.pickUpOtp = itemView.findViewById(R.id.pickUpOtp);
+            this.time = itemView.findViewById(R.id.time);
         }
     }
 }

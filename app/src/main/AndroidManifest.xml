@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.SEND_SMS" />
 
     <application
         android:allowBackup="true"
@@ -13,9 +13,12 @@
         android:roundIcon="@mipmap/lnm_laundry_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".OrderPlacedScreen"
+        <activity android:name=".PlacedOrderDetails"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".OrderPlacedScreen"
             android:screenOrientation="portrait"
-            android:theme="@style/DialogWithRoundCorners"></activity>
+            android:theme="@style/DialogWithRoundCorners" />
         <activity
             android:name=".orderSummary"
             android:screenOrientation="portrait" />

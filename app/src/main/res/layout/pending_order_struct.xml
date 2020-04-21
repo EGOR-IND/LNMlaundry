@@ -47,4 +47,11 @@
         android:textColor="@color/white"
         android:background="#ff7043"
         android:padding="2dp"/>
+    <TextView android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/totalClothes"
+        android:text="Order placing time - "
+        android:textSize="15dp"
+        android:textColor="#9e9e9e"/>
 </RelativeLayout>

@@ -48,13 +48,12 @@ public class rateDisplay extends AppCompatActivity {
                 DividerItemDecoration(recyclerView.getContext(),
                 DividerItemDecoration.VERTICAL));
 
-        rateList = new ArrayList<RateModel>();
-
         progressBar.setVisibility(View.VISIBLE);
         if (rates.rateId == "Regular wash rates"){
             mReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    rateList = new ArrayList<RateModel>();
                     for (DataSnapshot ds : dataSnapshot.child("Regular wash").getChildren()){
                         String item = ds.getKey();
                         Long rate = ds.getValue(Long.class);
@@ -74,6 +73,7 @@ public class rateDisplay extends AppCompatActivity {
             mReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    rateList = new ArrayList<RateModel>();
                     for (DataSnapshot ds : dataSnapshot.child("Dry clean").getChildren()){
                         String item = ds.getKey();
                         Long rate = ds.getValue(Long.class);

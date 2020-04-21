@@ -31,4 +31,22 @@
         android:layout_below="@id/ratesTitle"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"/>
+
+    <TextView android:id="@+id/noPendingOrders"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="No pending orders yet."
+        android:textColor="#9e9e9e"/>
+
+    <ProgressBar
+        android:id="@+id/pendingPB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:indeterminate="true"
+        android:max="100"
+        android:minHeight="50dp"
+        android:minWidth="50dp"
+        android:progress="1" />
 </RelativeLayout>

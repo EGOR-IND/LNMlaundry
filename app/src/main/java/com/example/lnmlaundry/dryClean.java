@@ -39,7 +39,6 @@ public class dryClean extends Fragment {
         View FragView = inflater.inflate(R.layout.activity_dry_clean, container, false);
 
         DatabaseReference mReference = FirebaseDatabase.getInstance().getReference().child("Rates");
-        items = new ArrayList<String>();
         progressBar = FragView.findViewById(R.id.dcProgressBar);
 
         recyclerView = (RecyclerView)FragView.findViewById(R.id.dcRecycler);
@@ -53,6 +52,7 @@ public class dryClean extends Fragment {
         mReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                items = new ArrayList<String>();
                 for (DataSnapshot ds : dataSnapshot.child("Dry clean").getChildren()){
                     String item = ds.getKey();
                     items.add(item);

@@ -23,4 +23,31 @@
             android:paddingTop="10dp"
             android:paddingBottom="15dp"/>
     </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/pastRV"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/ratesTitle"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
+
+    <TextView android:id="@+id/noPastOrders"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="You have no past successful orders."
+        android:textColor="#9e9e9e"
+        android:gravity="center"/>
+
+    <ProgressBar
+        android:id="@+id/pastPB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:indeterminate="true"
+        android:max="100"
+        android:minHeight="50dp"
+        android:minWidth="50dp"
+        android:progress="1" />
 </RelativeLayout>
