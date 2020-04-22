@@ -78,7 +78,7 @@ public class past extends Fragment {
                         }
                     }
                 }
-                adapter = new PendingOrderAdapter(orderData);
+                adapter = new PendingOrderAdapter(orderData, getActivity());
                 recyclerView.setAdapter(adapter);
                 if (orderData.size() == 0)
                     emptyRVtext.setVisibility(View.VISIBLE);

@@ -98,7 +98,7 @@ public class pending extends Fragment {
                         }
                     }
                 }
-                adapter = new PendingOrderAdapter(orderData);
+                adapter = new PendingOrderAdapter(orderData, getActivity());
                 recyclerView.setAdapter(adapter);
                 pb.setVisibility(View.GONE);
                 if (orderData.size() == 0)

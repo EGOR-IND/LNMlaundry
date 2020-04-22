@@ -22,4 +22,11 @@
     <style name="DialogWithRoundCorners" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowBackground">@drawable/dialog_bg</item>
     </style>
+
+    <style name="PlacedOrderDetailsTheme" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">@color/white</item>
+        <item name="colorPrimaryDark">@color/white</item>
+    </style>
 </resources>

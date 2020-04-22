@@ -1,5 +1,7 @@
 package com.example.lnmlaundry;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +16,12 @@ import java.util.Locale;
 
 public class PendingOrderAdapter extends RecyclerView.Adapter<PendingOrderAdapter.MyViewHolder> {
     public ArrayList<OrderModel> orderData;
+    public Context context;
+    public static String orderNoValue, statusVal, totalAmountValue, totalClothesValue, pickUpOtpValue, timeValue;
 
-    public PendingOrderAdapter(ArrayList<OrderModel> orderData){
+    public PendingOrderAdapter(ArrayList<OrderModel> orderData, Context context){
         this.orderData = orderData;
+        this.context = context;
     }
 
     @NonNull
@@ -29,9 +34,9 @@ public class PendingOrderAdapter extends RecyclerView.Adapter<PendingOrderAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
         TextView orderNo = holder.orderNo;
-        TextView status = holder.status;
+        final TextView status = holder.status;
         TextView totalAmount = holder.totalAmount;
         TextView totalClothes = holder.totalClothes;
         TextView pickUpOtp = holder.pickUpOtp;
@@ -56,6 +61,22 @@ public class PendingOrderAdapter extends RecyclerView.Adapter<PendingOrderAdapte
         totalAmount.append(NumberFormat.getCurrencyInstance(new Locale("en","in")).format(orderData.get(position).getTotalAmount()));
         totalClothes.append(orderData.get(position).getTotalClothes().toString());
         time.append(orderData.get(position).getTime());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, PlacedOrderDetails.class);
+                orderNoValue = orderData.get(position).getOrderNo();
+                totalAmountValue = NumberFormat.getCurrencyInstance(new Locale("en","in")).format(orderData.get(position).getTotalAmount());
+                totalClothesValue = orderData.get(position).getTotalClothes().toString();
+                timeValue = orderData.get(position).getTime();
+                statusVal = orderData.get(position).getStatus();
+                if (statusVal == "Placed"){
+                    pickUpOtpValue = orderData.get(position).getPickUpOtp().toString();
+                }
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -63,7 +84,7 @@ public class PendingOrderAdapter extends RecyclerView.Adapter<PendingOrderAdapte
         return orderData.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView orderNo, status, totalAmount, totalClothes, pickUpOtp, time;
 
         public MyViewHolder(@NonNull View itemView) {
