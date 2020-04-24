@@ -1,7 +1,6 @@
 package com.example.lnmlaundry;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Section {
     private String sectionTitle;
@@ -13,13 +12,8 @@ public class Section {
     public String getSectionTitle() {
         return sectionTitle;
     }
-    public void setSectionTitle(String sectionTitle) {
-        this.sectionTitle = sectionTitle;
-    }
+
     public ArrayList<RateModel> getAllItemsInSection() {
         return allItemsInSection;
-    }
-    public void setAllItemsInSection(ArrayList<RateModel> allItemsInSection) {
-        this.allItemsInSection = allItemsInSection;
     }
 }

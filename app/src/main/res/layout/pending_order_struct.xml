@@ -14,10 +14,11 @@
     <TextView android:id="@+id/totalAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/francois_one"
         android:text="Total amount - "
         android:layout_below="@id/orderNo"
         android:textSize="15dp"
-        android:textColor="#9e9e9e"/>
+        android:textColor="#757575"/>
 
     <TextView android:id="@+id/totalClothes"
         android:layout_width="wrap_content"

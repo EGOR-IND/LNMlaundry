@@ -112,7 +112,27 @@ public class signin_page extends AppCompatActivity {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                firebaseAuthWithGoogle(account);
+                if (account.getEmail().contains("@lnmiit.ac.in")){
+                    firebaseAuthWithGoogle(account);
+                }else {
+                    try {
+                        final AlertDialog alertDialog = new AlertDialog.Builder(signin_page.this).create();
+
+                        alertDialog.setTitle("Alert");
+                        alertDialog.setMessage("Please sign in with LNMIIT community gmail ID");
+                        alertDialog.setIcon(android.R.drawable.ic_dialog_alert);
+                        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                alertDialog.dismiss();
+                                mProgress.dismiss();
+                            }
+                        });
+                        alertDialog.setCanceledOnTouchOutside(false);
+                        alertDialog.show();
+                    } catch (Exception e) {
+
+                    }
+                }
             } catch (ApiException e) {
                 mProgress.dismiss();
             }

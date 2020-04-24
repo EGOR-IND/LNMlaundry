@@ -13,7 +13,8 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public class OrderSumAdapter extends RecyclerView.Adapter<OrderSumAdapter.MyViewHolder> {
-    public ArrayList<RateModel> dataSet;
+    private ArrayList<RateModel> dataSet;
+    private int textColor;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView item, qty, rate, amount;
@@ -27,8 +28,9 @@ public class OrderSumAdapter extends RecyclerView.Adapter<OrderSumAdapter.MyView
         }
     }
 
-    public OrderSumAdapter(ArrayList<RateModel> dataSet) {
+    public OrderSumAdapter(ArrayList<RateModel> dataSet, int textColor) {
         this.dataSet = dataSet;
+        this.textColor = textColor;
     }
 
     @NonNull
@@ -46,6 +48,11 @@ public class OrderSumAdapter extends RecyclerView.Adapter<OrderSumAdapter.MyView
         TextView rate = holder.rate;
         TextView qty = holder.qty;
         TextView amount = holder.amount;
+
+        item.setTextColor(textColor);
+        rate.setTextColor(textColor);
+        qty.setTextColor(textColor);
+        amount.setTextColor(textColor);
 
         item.setText(dataSet.get(position).getItem());
         qty.setText(dataSet.get(position).getQty().toString());

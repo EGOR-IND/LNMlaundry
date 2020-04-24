@@ -16,9 +16,13 @@ public class SectionAdapter extends RecyclerView.Adapter<SectionAdapter.ViewHold
     private List<Section> sectionList;
     private Context context;
     private OrderSumAdapter OrderSumAdapter;
-    public SectionAdapter(Context context, List<Section> sections) {
-        sectionList = sections;
+    private int textColor, sectionColor;
+
+    public SectionAdapter(Context context, List<Section> sections, int textColor, int sectionColor) {
+        this.sectionList = sections;
         this.context = context;
+        this.textColor = textColor;
+        this.sectionColor = sectionColor;
     }
     @NonNull
     @Override
@@ -35,6 +39,7 @@ public class SectionAdapter extends RecyclerView.Adapter<SectionAdapter.ViewHold
     public int getItemCount() {
         return sectionList.size();
     }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView sectionName;
         private RecyclerView itemRecyclerView;
@@ -44,24 +49,13 @@ public class SectionAdapter extends RecyclerView.Adapter<SectionAdapter.ViewHold
             itemRecyclerView = itemView.findViewById(R.id.osRecyclerView);
         }
         public void bind(Section section) {
+            sectionName.setTextColor(sectionColor);
             sectionName.setText(section.getSectionTitle());
             // RecyclerView for items
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
             itemRecyclerView.setLayoutManager(linearLayoutManager);
-            OrderSumAdapter = new OrderSumAdapter(section.getAllItemsInSection());
+            OrderSumAdapter = new OrderSumAdapter(section.getAllItemsInSection(), textColor);
             itemRecyclerView.setAdapter(OrderSumAdapter);
-        }
-    }
-    public void moveItem(int toSectionPosition, int fromSectionPosition) {
-        List<RateModel> toItemsInSection = sectionList.get(toSectionPosition).getAllItemsInSection();
-        List<RateModel> fromItemsInSection = sectionList.get(fromSectionPosition).getAllItemsInSection();
-        if (fromItemsInSection.size() > 3) {
-            toItemsInSection.add(fromItemsInSection.get(3));
-            fromItemsInSection.remove(3);
-            // update adapter for items in a section
-            OrderSumAdapter.notifyDataSetChanged();
-            // update adapter for sections
-            this.notifyDataSetChanged();
         }
     }
 }

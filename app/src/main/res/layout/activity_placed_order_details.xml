@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:text="order details"
         android:textSize="23dp"
-        android:textColor="#757575"
+        android:textColor="#616161"
         android:fontFamily="sans-serif-condensed"
         android:layout_margin="10dp"
         android:layout_toRightOf="@id/podBackBtn"/>
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="12dp"
         android:src="@drawable/ic_keyboard_backspace_black_24dp"
-        android:tint="#757575"/>
+        android:tint="#616161"/>
 
     <TextView android:id="@+id/podorderNo"
         android:layout_width="wrap_content"
@@ -34,14 +34,16 @@
         android:layout_below="@id/podBackBtn"
         android:layout_marginLeft="15dp"/>
 
-    <TextView android:id="@+id/podtotalAmount"
+    <TextView
+        android:id="@+id/podtotalAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Total amount - "
         android:layout_below="@id/podorderNo"
-        android:textSize="15dp"
-        android:textColor="#9e9e9e"
-        android:layout_marginLeft="15dp"/>
+        android:layout_marginLeft="15dp"
+        android:fontFamily="@font/francois_one"
+        android:text="Total amount - "
+        android:textColor="#757575"
+        android:textSize="15dp"/>
 
     <TextView android:id="@+id/podtotalClothes"
         android:layout_width="wrap_content"
@@ -84,4 +86,80 @@
         android:textSize="15dp"
         android:textColor="#9e9e9e"
         android:layout_marginLeft="15dp"/>
+
+    <TextView android:id="@+id/podOrderPickupTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/podOrderPlacedTime"
+        android:text="Order pick up time - "
+        android:textSize="15dp"
+        android:textColor="#9e9e9e"
+        android:layout_marginLeft="15dp"/>
+
+    <TextView android:id="@+id/podOrderReadyTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/podOrderPickupTime"
+        android:text="Order Ready time - "
+        android:textSize="15dp"
+        android:textColor="#9e9e9e"
+        android:layout_marginLeft="15dp"/>
+
+    <TextView android:id="@+id/podOrderDeliverTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/podOrderReadyTime"
+        android:text="Order taken by you time - "
+        android:textSize="15dp"
+        android:textColor="#9e9e9e"
+        android:layout_marginLeft="15dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/podOrderDeliverTime">
+
+        <LinearLayout android:id="@+id/podDetailHead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:text="Item"
+                android:textSize="20dp"
+                android:textColor="#616161"
+                android:paddingLeft="15dp"/>
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:text="Qty."
+                android:textColor="#616161"
+                android:textSize="20dp"
+                android:gravity="center"/>
+            <TextView
+                android:layout_width="65dp"
+                android:layout_height="wrap_content"
+                android:text="Rate"
+                android:textColor="#616161"
+                android:textSize="20dp"
+                android:gravity="center"/>
+            <TextView
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:text="Amount"
+                android:textColor="#616161"
+                android:textSize="20dp"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/podSectionRV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/podDetailHead"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
+    </RelativeLayout>
 </RelativeLayout>

@@ -91,7 +91,7 @@ public class orderSummary extends AppCompatActivity {
                         orderSumList.add(new RateModel(item, qty, rate, amount.get(amount.size()-1)));
                     }
                     sections.add(new Section("Regular wash", orderSumList));
-                    adapter = new SectionAdapter(orderSummary.this, sections);
+                    adapter = new SectionAdapter(orderSummary.this, sections, getResources().getColor(R.color.colorPrimary), getResources().getColor(R.color.colorPrimary));
                     recyclerView.setAdapter(adapter);
                     setTotal();
                 }
@@ -106,7 +106,7 @@ public class orderSummary extends AppCompatActivity {
                         orderSumList.add(new RateModel(item, qty, rate, amount.get(amount.size()-1)));
                     }
                     sections.add(new Section("Dry clean", orderSumList));
-                    adapter = new SectionAdapter(orderSummary.this, sections);
+                    adapter = new SectionAdapter(orderSummary.this, sections, getResources().getColor(R.color.colorPrimary), getResources().getColor(R.color.colorPrimary));
                     recyclerView.setAdapter(adapter);
                     setTotal();
                 }
