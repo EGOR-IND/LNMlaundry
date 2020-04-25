@@ -94,8 +94,26 @@ public class signin_page extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        startActivity(new Intent(signin_page.this, MainActivity.class));
-                        finish();
+                        final FirebaseUser user = mAuth.getCurrentUser();
+                        mDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                for (DataSnapshot ds : dataSnapshot.child("Admins").getChildren()){
+                                    if (!user.getEmail().contains(ds.getValue(String.class))){
+                                        startActivity(new Intent(signin_page.this, MainActivity.class));
+                                        finish();
+                                    }else {
+                                        startActivity(new Intent(signin_page.this, AdminMainActivity.class));
+                                        finish();
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
                     }
                 }, 2000);
             } else onNotOnline();
@@ -111,28 +129,56 @@ public class signin_page extends AppCompatActivity {
 
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                if (account.getEmail().contains("@lnmiit.ac.in")){
-                    firebaseAuthWithGoogle(account);
-                }else {
-                    try {
-                        final AlertDialog alertDialog = new AlertDialog.Builder(signin_page.this).create();
+                final GoogleSignInAccount account = task.getResult(ApiException.class);
+                mDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot ds : dataSnapshot.child("Admins").getChildren()){
+                            if (!account.getEmail().contains(ds.getValue(String.class))){
+                                if (account.getEmail().contains("@lnmiit.ac.in")){
+                                    firebaseAuthWithGoogle(account);
+                                }else {
+                                    try {
+                                        final AlertDialog alertDialog = new AlertDialog.Builder(signin_page.this).create();
 
-                        alertDialog.setTitle("Alert");
-                        alertDialog.setMessage("Please sign in with LNMIIT community gmail ID");
-                        alertDialog.setIcon(android.R.drawable.ic_dialog_alert);
-                        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                alertDialog.dismiss();
-                                mProgress.dismiss();
+                                        alertDialog.setTitle("Alert");
+                                        alertDialog.setMessage("Please sign in with LNMIIT community gmail ID");
+                                        alertDialog.setIcon(android.R.drawable.ic_dialog_alert);
+                                        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                alertDialog.dismiss();
+                                                mProgress.dismiss();
+                                            }
+                                        });
+                                        alertDialog.setCanceledOnTouchOutside(false);
+                                        alertDialog.show();
+                                    } catch (Exception e) {
+
+                                    }
+                                }
+                            }else {
+                                Log.d(TAG, "firebaseAuthWithGoogle: "+account.getId());
+
+                                AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
+
+                                mAuth.signInWithCredential(credential).addOnCompleteListener(signin_page.this, new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        finish();
+                                        mProgress.dismiss();
+                                        startActivity(new Intent(signin_page.this, AdminMainActivity.class));
+                                        Toast.makeText(signin_page.this, "Admin Signed In", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                             }
-                        });
-                        alertDialog.setCanceledOnTouchOutside(false);
-                        alertDialog.show();
-                    } catch (Exception e) {
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
                     }
-                }
+                });
             } catch (ApiException e) {
                 mProgress.dismiss();
             }

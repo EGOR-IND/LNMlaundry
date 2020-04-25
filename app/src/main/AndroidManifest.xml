@@ -13,9 +13,16 @@
         android:roundIcon="@mipmap/lnm_laundry_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PlacedOrderDetails"
+        <activity android:name=".AdminAccount"
             android:screenOrientation="portrait"
-            android:theme="@style/PlacedOrderDetailsTheme"></activity>
+            android:theme="@style/DialogWithRoundCorners"/>
+        <activity
+            android:name=".AdminMainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PlacedOrderDetails"
+            android:screenOrientation="portrait"
+            android:theme="@style/PlacedOrderDetailsTheme" />
         <activity
             android:name=".OrderPlacedScreen"
             android:screenOrientation="portrait"

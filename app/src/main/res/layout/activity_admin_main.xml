@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AdminMainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:padding="4dp"
+        android:elevation="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Priyanshi\nDrycleans"
+            android:fontFamily="@font/chewy"
+            android:textColor="@color/white"
+            android:textSize="20dp"/>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/adminProfile"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            app:cardCornerRadius="17dp"
+            app:cardElevation="0dp"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView android:id="@+id/adminProfilePic"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"/>
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+
+    <LinearLayout android:id="@+id/navigationBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#f5f5f5"
+        android:elevation="20dp">
+
+        <TextView android:id="@+id/Placed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/home_dis"
+            android:text="Placed"
+            android:textSize="10dp"
+            android:gravity="center_horizontal"
+            android:textColor="@color/iconDisabed"
+            android:layout_weight="0.25"
+            android:paddingTop="3dp"
+            android:clickable="true"
+            android:focusable="true"/>
+
+        <TextView android:id="@+id/PickedUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/pending_dis"
+            android:text="Picked UP"
+            android:textSize="10dp"
+            android:gravity="center_horizontal"
+            android:textColor="@color/iconDisabed"
+            android:layout_weight="0.25"
+            android:paddingTop="3dp"
+            android:clickable="true"
+            android:focusable="true"/>
+
+        <TextView android:id="@+id/Ready"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/deliver_dis"
+            android:text="Ready"
+            android:textSize="10dp"
+            android:gravity="center_horizontal"
+            android:textColor="@color/iconDisabed"
+            android:layout_weight="0.25"
+            android:paddingTop="3dp"
+            android:clickable="true"
+            android:focusable="true"/>
+
+        <TextView android:id="@+id/EditInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/rates_dis"
+            android:text="Edit Info"
+            android:textSize="10dp"
+            android:gravity="center_horizontal"
+            android:textColor="@color/iconDisabed"
+            android:layout_weight="0.25"
+            android:paddingTop="3dp"
+            android:clickable="true"
+            android:focusable="true"/>
+    </LinearLayout>
+</RelativeLayout>
